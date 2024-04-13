@@ -1,9 +1,8 @@
 {
   "expo": {
-    "name": "clase4",
-    "slug": "clase4",
+    "name": "ProyectoReactNative",
+    "slug": "ProyectoReactNative",
     "version": "1.0.0",
-    "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -21,7 +20,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
-      }
+      },
+      "package": "com.anonymous.clase4aa"
     },
     "web": {
       "favicon": "./assets/favicon.png"

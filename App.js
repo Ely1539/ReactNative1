@@ -44,7 +44,7 @@ const App = () => {
                 handleChangeText={handleChangeText}
                 textItem={textItem}
             />
-            <ImageBackground source={require('./assets/task.png')} style={styles.backgroundImage}>
+            <ImageBackground source={require('./assets/detailing1.jpg')} style={styles.backgroundImage}>
             {itemList.length > 0 && ( 
                 <View style={styles.taskContainer}>
                     <FlatList
