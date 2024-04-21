@@ -4,8 +4,8 @@ import { colors } from '../constants/colors'
 
 const Header = ({title}) => {
   return (
-    <View style = {styles.container}>
-      <Text style = {styles.text}>{title}</Text>
+    <View style = {styles.headerContainer}>
+      <Text style = {styles.headerText}>{title}</Text>
     </View>
   )
 }
@@ -13,14 +13,29 @@ const Header = ({title}) => {
 export default Header
 
 const styles = StyleSheet.create({
-  container: {
+  headerContainer: {
+    marginTop: 10,
     width: '100%',
-    height: 70,
+    height: '10%',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    shadowColor: colors.cardColor,
+    shadowOffset:{
+      width: 10,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
+    elevation: 6,
+    backgroundColor: colors.cardColor,
   },
-  text: {
+  headerText: {
     color: colors.lightColor,
-    fontSize: 15
+    width: "100%",
+    fontFamily: 'Josefine',
+    textAlign: 'center',
+    fontSize: 15,
+    
+ 
   }
 })

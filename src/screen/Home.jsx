@@ -4,43 +4,54 @@ import { colors } from '../constants/colors';
 import CategoryItem from '../components/CategoryItem';
 import categories from '../data/categories.json';
 
-const Home = () => {
+const Home = ({setCategorySelected}) => {
+
   return (
-    <ImageBackground 
+    <View style={styles.contentContainer}>
+<ImageBackground 
       source={require('../../assets/detailing1.jpg')} 
-      style={styles.flatListContainer}
+      style={styles.logoStyle}
     >
+       <View style={styles.flatStyles}> 
+
       <FlatList
         keyExtractor = {item => item}
         data={categories.sort()}
-        renderItem={({ item }) => <CategoryItem category={item} />}
-        contentContainerStyle={styles.contentContainer}
+        renderItem={({ item }) => <CategoryItem 
+        selectCategoryHandler={setCategorySelected} category={item} />}
       />
-    </ImageBackground>
+       </View>
+   </ImageBackground>
+    </View>
   );
 };
 
 export default Home;
 
 const styles = StyleSheet.create({
-  flatListContainer: {
-    flex: 1, 
+logoStyle: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    height: "50%", 
+    height: "30%", 
     width: "100%", 
-    marginTop: 10,
-    opacity: 0.7,
+    opacity: 0.9,
+    marginTop: 3,
+    
+ 
   },
   contentContainer: {
-    flex: 1,                                                        
-    justifyContent: 'center',
+    flex: 1,
+    height: "100%",
+    width: "100%",
+    marginTop: 20,
    
-    gap: 8,
-    padding: 1,  
-    marginTop:360,
-    height: "100%", 
-    width: "100%", 
-  
   },
+  flatStyles:{
+    backgroundColor: "red",
+    marginTop: 290,
+    
+    
+  }
+ 
 });

@@ -1,12 +1,18 @@
-import { Dimensions, StyleSheet, Text, View } from 'react-native'
+import { Dimensions, StyleSheet, Text, View, Pressable } from 'react-native'
 import React from 'react'
 import { colors } from '../constants/colors';
 import Card from './Card';
+import { YellowBox } from 'react-native-web';
 
-const CategoryItem = ({category}) => {
+const CategoryItem = ({category, selectCategoryHandler=()=>{}}) => {
   return (
-    <Card style={{borderRadius:15,}}>
-      <Text style = {styles.text}>{category}</Text>
+ 
+
+    <Card style={styles.categoryContainer}>
+      <Pressable
+      onPress={ () => selectCategoryHandler (category)}> 
+      <Text style={styles.itemText}>{category}</Text>
+      </Pressable>
     </Card>
   )
 }
@@ -15,6 +21,18 @@ export default CategoryItem
 
 const styles = StyleSheet.create({
     categoryContainer: {
+        backgroundColor: colors.cardColor,
+        borderRadius: 12,
+        width: 360,
+        height: 60,
+        shadowColor: colors.lightColor,
+        shadowOffset:{
+          width: 100,
+          height: 3,
+        },
+        shadowOpacity: 0.27,
+        shadowRadius: 4.65,
+        elevation: 6,
         shadowColor: colors.cardColor,
         shadowOffset:{
           width: 20,
@@ -24,9 +42,17 @@ const styles = StyleSheet.create({
         shadowRadius: 4.65,
         elevation: 6,
     },
-    text: {
+    itemText: {
+
         color: colors.lightColor,
         textAlign: 'center',
-        fontSize: 18
-    }
+        fontSize: 20,
+        fontFamily: 'Josefine',
+        backgroundColor: colors.groundColor,
+        width: "100%",
+        height: "90%",
+       
+    },
+   
+    
 })
