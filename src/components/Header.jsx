@@ -1,11 +1,13 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { StyleSheet, Text, View, useWindowDimensions } from 'react-native'
 import React from 'react'
 import { colors } from '../constants/colors'
 
 const Header = ({title}) => {
+  const {height, width} = useWindowDimensions()
+
   return (
     <View style = {styles.headerContainer}>
-      <Text style = {styles.headerText}>{title}</Text>
+      <Text style = {width>=360 ? styles.headerTextResp : styles.headerText}>{title}</Text>
     </View>
   )
 }
@@ -36,6 +38,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     fontSize: 15,
     
- 
-  }
+  },
+  headerTextResp: {
+    fontSize: 10,
+    backgroundColor: colors.cardColor,
+    color: colors.lightColor,
+    width: "100%",
+    textAlign: 'center', 
+  },
 })

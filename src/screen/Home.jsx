@@ -13,7 +13,7 @@ const Home = ({setCategorySelected}) => {
       style={styles.logoStyle}
     >
        <View style={styles.flatStyles}> 
-
+       <Text style={{color: colors.cardColor, fontFamily: 'Jersey', fontSize: 30, textAlign: 'center'}}>categorias</Text>
       <FlatList
         keyExtractor = {item => item}
         data={categories.sort()}
@@ -49,7 +49,17 @@ logoStyle: {
   },
   flatStyles:{
     backgroundColor: "red",
-    marginTop: 290,
+    marginTop: 100,
+    height: "50%",
+    width: "85%",
+    gap: 20,
+    shadowColor: colors.lightColor,
+    shadowOffset:{
+      width: 10,
+      height: 3,
+    },
+    shadowOpacity: 0.27,
+    shadowRadius: 4.65,
     
     
   }

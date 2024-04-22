@@ -7,7 +7,10 @@ import Search from '../components/Search';
 import { useState, useEffect } from 'react'
 
 
-const ItemListCategory = ({categorySelected="", setCategorySelected = ()=> {}}) => {
+const ItemListCategory = ({categorySelected="", 
+setCategorySelected = ()=> {},
+setItemIdSelected = ()=> {},
+}) => {
    const [keyWord, setKeyword] = useState("")
    const [filterProduct, setFilterProduct] = useState([])
     const[error,setError] = useState("")
@@ -25,6 +28,7 @@ const ItemListCategory = ({categorySelected="", setCategorySelected = ()=> {}}) 
         setError("Ingresa solo letras")
         return
     }
+   
 
 setFilterProduct(productFilter)
 setError("")
@@ -35,7 +39,7 @@ setError("")
 
          <FlatList
             data= {filterProduct}
-            renderItem={({item}) => <ProductItem item ={item}/>}
+            renderItem={({item}) => <ProductItem item ={item} setItemIdSelected={setItemIdSelected}/>}
             keyExtractor={(item) => item.id}
         />
     
@@ -46,7 +50,7 @@ setError("")
 const styles = StyleSheet.create({
     FlatListContainer: {
    
-        height: "90%",
+        height: "80%",
         width: "95%",
         marginTop: 10,
        
