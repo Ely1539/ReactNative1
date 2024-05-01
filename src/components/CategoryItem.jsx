@@ -21,7 +21,7 @@ export default CategoryItem;
 
 const styles = StyleSheet.create({
   categoryContainer: {
-    backgroundColor: "#ceab86",
+    backgroundColor: "gold",
     borderRadius: 12,
     width: "100%",
     height: 60,

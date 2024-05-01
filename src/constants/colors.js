@@ -1,5 +1,7 @@
 export const colors = {
   groundColor: "#191717",
   cardColor: "#222831",
-  lightColor: "white",
-};
+  lightColor: "#cfd8dc",
+  cardScreens : "#000000", 
+
+}

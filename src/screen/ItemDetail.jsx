@@ -1,12 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Pressable,
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  useWindowDimensions,
-} from "react-native";
+import { Pressable, Image, StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import allProducts from "../data/products.json";
 import { colors } from "../constants/colors";
 import { useFonts } from "expo-font";
@@ -24,9 +17,7 @@ const ItemDetail = ({ route, navigation }) => {
   }, [width, height]);
 
   useEffect(() => {
-    const productSelected = allProducts.find(
-      (product) => product.id === itemSelected
-    );
+    const productSelected = allProducts.find(product => product.id === itemSelected);
     setProduct(productSelected);
   }, [itemSelected]);
 
@@ -36,44 +27,23 @@ const ItemDetail = ({ route, navigation }) => {
         <Text style={styles.buttonText}>Ir a categorias</Text>
       </Pressable>
       {product ? (
-        <View
-          style={
-            orientation === "portrait"
-              ? styles.detailContainer
-              : styles.detailContainerOtherView
-          }
-        >
-          <View style={styles.imageContainer1}>
+        <View style={orientation === "portrait" ? styles.detailContainer : styles.detailContainerOtherView}>
+          <View style={styles.imageContainer}>
             <Image
               source={{ uri: product.images[0] }}
-              style={
-                orientation === "portrait"
-                  ? styles.imageOnly
-                  : styles.imageOtherView
-              }
+              style={orientation === "portrait" ? styles.imageOnly : styles.imageOtherView}
               resizeMode="cover"
             />
           </View>
-          <View
-            style={
-              orientation === "portrait"
-                ? styles.textContainer1
-                : styles.textDetailOtherView
-            }
-          >
-            <View style={styles.textContainer1}>
-              <Text>{product.title}</Text>
-              <Text>{product.description}</Text>
-              <Text style={styles.priceDetail}>
-                {" "}
-                <Text>Precio</Text> ${product.price}
-              </Text>
-            </View>
-            <View style={styles.buttonContainer}>
-              <Pressable style={styles.button}>
-                <Text style={styles.buttonText}>Agregar Al Carrito</Text>
-              </Pressable>
-            </View>
+          <View style={styles.textContainer}>
+            <Text>{product.title}</Text>
+            <Text>{product.description}</Text>
+            <Text style={styles.priceDetail}>
+              <Text>Precio:</Text> ${product.price}
+            </Text>
+            <Pressable style={styles.button}>
+              <Text style={styles.buttonText}>Agregar Al Carrito</Text>
+            </Pressable>
           </View>
         </View>
       ) : null}
@@ -87,76 +57,60 @@ const styles = StyleSheet.create({
     height: "70%",
     width: "100%",
     textAlign: "center",
-  
+    backgroundColor: "brown",
   },
   detailContainerOtherView: {
-  marginTop: "1%",
+    marginTop: "1%",
     padding: 0,
     height: "0%",
     width: "20%",
-marginLeft: 120,
- 
+    marginLeft: 120,
+  },
+  imageContainer: {
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 20,
+    marginTop: 40,
   },
   imageOnly: {
     height: "85%",
     width: "100%",
-    marginBottom: 20,
-    marginTop: 40,
   },
   imageOtherView: {
     width: "135%",
     height: 200,
     marginTop: 50,
-    marginLeft:500
-   
+    marginLeft: 500,
   },
-  textDetailOtherView: {
-    width: "240%",
-    flexDirection: "column",
-    justifyContent: "center",
-    alignItems: "start",
-    height: 260,
-    marginTop: 30,
- 
+  textContainer: {
+    padding: 10,
+    backgroundColor: colors.lightColor,
   },
   priceDetail: {
     textAlign: "center",
-    width: "100%",
-    backgroundColor: "red",
+    marginTop: 70,
+    backgroundColor: colors.cardColor,
     height: 30,
     fontSize: 20,
     color: colors.lightColor,
     fontWeight: "bold",
   },
-  textContainer1: {
-    height: 100,
-    width: "100%",
-    gap: 5,
-    backgroundColor: colors.lightColor,
-  },
-  buttonContainer: {
-    marginTop: 20,
-    height: 30,
-    width: "40%",
-    justifyContent: "center",
-    marginLeft: 10,
-  },
   button: {
-    height: "10%",
-    width: "100%",
-    top: "5%",
+    marginTop: 20,
+    height: 40,
+    width: "60%",
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: colors.cardColor,
+    borderRadius: 20,
+    alignSelf: "center",
   },
   buttonText: {
     fontSize: 18,
-    borderRadius: 40,
     fontWeight: "bold",
-    height: 40,
-
-    width: "100%",
-    textAlign: "center",
     color: colors.lightColor,
-    backgroundColor: colors.cardColor,
   },
 });
 
 export default ItemDetail;
+

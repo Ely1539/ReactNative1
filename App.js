@@ -2,10 +2,9 @@ import React, { useCallback } from "react";
 import { Platform, StyleSheet, StatusBar } from "react-native";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
-import { colors } from "./src/constants/colors";
-import Navigator from "./src/components/navigation/navigator";
+import Navigator from "./src/navigation/navigator";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import { View } from "react-native-web";
+
 
 const App = () => {
   const [fontsLoaded, fontError] = useFonts({

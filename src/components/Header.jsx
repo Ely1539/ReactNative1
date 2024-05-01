@@ -16,9 +16,11 @@ const Header = ({ title }) => {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    marginTop: 30, 
-    width: "60%", 
-    height: 30, 
+    justifyContent: 'center',
+    marginTop: 30,
+    marginLeft: 10, 
+    width: "75%", 
+    height: 50, 
     shadowColor: colors.cardColor,
     shadowOffset: {
       width: 0,
@@ -26,12 +28,16 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-    elevation: 5,
-    backgroundColor: colors.cardColor,
+    elevation: 2,
+    backgroundColor: "white",
+    borderWidth: 1, 
+    borderColor: colors.cardColor, 
+    borderRadius: 20,
   },
+  
   headerText: {
     fontSize: 16,
-    color: colors.lightColor,
+    color: "red",
     textAlign: "center",
   },
 });
