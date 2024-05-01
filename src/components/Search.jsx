@@ -1,3 +1,4 @@
+
 import { useState } from "react";
 import { StyleSheet, View, Pressable, TextInput, Text } from "react-native";
 import { Feather, MaterialIcons, Octicons } from "@expo/vector-icons";
@@ -11,7 +12,7 @@ const Search = ({ onSearch = () => {}, error = "", goBack = () => {} }) => {
         <Pressable onPress={() => onSearch(keyword)}>
           <Octicons name="search" size={30} color="red" />
         </Pressable>
-        <Pressable onPress={() => setKeyword(keyword)}>
+        <Pressable onPress={() => setKeyword("")}>
           <MaterialIcons name="phonelink-erase" size={30} color="red" />
         </Pressable>
         <Pressable onPress={goBack}>
@@ -20,7 +21,7 @@ const Search = ({ onSearch = () => {}, error = "", goBack = () => {} }) => {
       </View>
       <TextInput
         style={styles.input}
-        placeholder="Busqueda......"
+        placeholder="Ingresa tu búsqueda aquí..."
         value={keyword}
         onChangeText={setKeyword}
       />
@@ -32,34 +33,32 @@ const Search = ({ onSearch = () => {}, error = "", goBack = () => {} }) => {
 
 const styles = StyleSheet.create({
   input: {
-    height: 40,
-    width: "100%",
+    height: 50,
+    width: "95%",
     borderWidth: 1,
     borderRadius: 10,
-    padding: 10,
+  
+    paddingHorizontal: 80, 
     backgroundColor: "white",
     marginTop: 20,
+    marginLeft: 10,
+    marginBottom: 10,
   },
 
   iconContainer: {
-    marginTop: 20,
     flexDirection: "row",
-    gap: 20,
-    left: "138%",
-    height: 30,
-    width: "35%",
+    justifyContent: "space-around",
+    marginLeft: 170,
+    marginTop: 30,
+    width: "60%",
     backgroundColor: colors.cardColor,
-    marginHorizontal: 25,
   },
   errorStyle: {
     backgroundColor: "tomato",
     marginTop: 10,
-
-    width: "70%",
-    height: 30,
-    marginHorizontal: 105,
+    paddingVertical: 5,
+    paddingHorizontal: 10,
     textAlign: "center",
-    alignItems: "center",
     color: colors.lightColor,
     borderRadius: 10,
   },

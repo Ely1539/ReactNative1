@@ -51,7 +51,7 @@ const ItemDetail = ({ route, navigation }) => {
                   ? styles.imageOnly
                   : styles.imageOtherView
               }
-              resizeMode="contain"
+              resizeMode="cover"
             />
           </View>
           <View
@@ -87,13 +87,15 @@ const styles = StyleSheet.create({
     height: "70%",
     width: "100%",
     textAlign: "center",
+  
   },
   detailContainerOtherView: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "flex-start",
-    padding: 10,
-    gap: 10,
+  marginTop: "1%",
+    padding: 0,
+    height: "0%",
+    width: "20%",
+marginLeft: 120,
+ 
   },
   imageOnly: {
     height: "85%",
@@ -102,20 +104,25 @@ const styles = StyleSheet.create({
     marginTop: 40,
   },
   imageOtherView: {
-    width: "45%",
+    width: "135%",
     height: 200,
+    marginTop: 50,
+    marginLeft:500
+   
   },
   textDetailOtherView: {
-    width: "50%",
+    width: "240%",
     flexDirection: "column",
     justifyContent: "center",
     alignItems: "start",
+    height: 260,
+    marginTop: 30,
+ 
   },
   priceDetail: {
     textAlign: "center",
     width: "100%",
     backgroundColor: "red",
-
     height: 30,
     fontSize: 20,
     color: colors.lightColor,

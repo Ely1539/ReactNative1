@@ -6,6 +6,7 @@ import Home from "../../screen/Home";
 import ItemDetail from "../../screen/ItemDetail";
 import ItemListCategory from "../../screen/ItemListCategory";
 import Header from "../Header";
+import HoroscopeS from "../../screen/HoroscopeS";
 const Stack = createNativeStackNavigator();
 const Navigator = () => {
   return (
@@ -31,6 +32,10 @@ const Navigator = () => {
         <Stack.Screen component={Home} name="Home" />
         <Stack.Screen component={ItemListCategory} name="ItemListCategory" />
         <Stack.Screen component={ItemDetail} name="ItemDetail" />
+        <Stack.Screen component={HoroscopeS} name="HoroscopeS" />
+
+  
+        
       </Stack.Navigator>
     </NavigationContainer>
   );

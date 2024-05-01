@@ -1,66 +1,81 @@
-import React from "react";
-import { StyleSheet, View, Text, FlatList, Pressable } from "react-native";
+import React, { useState, useEffect } from "react";
+import { StyleSheet, View, FlatList, useWindowDimensions } from "react-native";
 import { colors } from "../constants/colors";
 import products from "../data/products.json";
 import ProductItem from "../components/ProductItem";
 import Search from "../components/Search";
-import { useState, useEffect } from "react";
 
-const ItemListCategory = ({
-  setCategorySelected = () => {},
-
-  navigation,
-  route,
-}) => {
+const ItemListCategory = ({ navigation, route }) => {
   const [keyWord, setKeyword] = useState("");
-  const [filterProduct, setFilterProduct] = useState([]);
+  const [filterProducts, setFilterProducts] = useState([]);
   const [error, setError] = useState("");
-
   const { category: categorySelected } = route.params;
+  const { width, height } = useWindowDimensions();
+  const isPortrait = height > width;
 
   useEffect(() => {
-    const filterProducts = products.filter(
+    const filteredProducts = products.filter(
       (product) => product.category === categorySelected
     );
-    const productFilter = filterProducts.filter((product) =>
+    const productFilter = filteredProducts.filter((product) =>
       product.title.toLowerCase().includes(keyWord.toLowerCase())
     );
-    regex = /\d/;
+    const regex = /\d/;
     const noDigits = regex.test(keyWord);
 
     if (noDigits) {
       setError("Ingresa solo letras");
-      return;
+    } else {
+      setError("");
     }
 
-    setFilterProduct(productFilter);
-    setError("");
+    setFilterProducts(productFilter);
   }, [keyWord, categorySelected]);
+
   return (
-    <View style={styles.FlatListContainer}>
+    <View style={[styles.container, isPortrait ? styles.portraitContainer : styles.landscapeContainer]}>
       <Search
         error={error}
         onSearch={setKeyword}
-        goBack={() => navigation.goBack("")}
+        goBack={() => navigation.goBack()}
       />
-
       <FlatList
-        data={filterProduct}
+        data={filterProducts}
         renderItem={({ item }) => (
           <ProductItem item={item} navigation={navigation} />
         )}
         keyExtractor={(item) => item.id}
+        contentContainerStyle={styles.flatListContainer}
       />
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  FlatListContainer: {
-    height: "80%",
-    width: "95%",
-    marginTop: 10,
+  container: {
+    flex: 1,
+
   },
+  portraitContainer: {
+    alignItems: "center",
+
+    
+  },
+  landscapeContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "95%",
+    
+  },
+  
+  
+  flatListContainer: {
+    width: "100%",
+    gap: 130,
+  },
+  
 });
 
 export default ItemListCategory;
+

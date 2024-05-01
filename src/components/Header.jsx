@@ -7,7 +7,7 @@ const Header = ({ title }) => {
 
   return (
     <View style={styles.headerContainer}>
-      <Text style={width >= 360 ? styles.headerTextResp : styles.headerText}>
+      <Text style={styles.headerText}>
         {title}
       </Text>
     </View>
@@ -16,33 +16,22 @@ const Header = ({ title }) => {
 
 const styles = StyleSheet.create({
   headerContainer: {
-    marginTop: 100,
-    width: "100%",
-    height: "10%",
-    justifyContent: "center",
-    alignItems: "center",
+    marginTop: 30, 
+    width: "60%", 
+    height: 30, 
     shadowColor: colors.cardColor,
     shadowOffset: {
-      width: 10,
-      height: 3,
+      width: 0,
+      height: 2,
     },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
-    elevation: 6,
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
     backgroundColor: colors.cardColor,
   },
   headerText: {
+    fontSize: 16,
     color: colors.lightColor,
-    width: "100%",
-    fontFamily: "Josefine",
-    textAlign: "center",
-    fontSize: 15,
-  },
-  headerTextResp: {
-    fontSize: 10,
-    backgroundColor: colors.cardColor,
-    color: colors.lightColor,
-    width: "100%",
     textAlign: "center",
   },
 });

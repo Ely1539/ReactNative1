@@ -1,24 +1,48 @@
-import React from "react";
+// Home.jsx
+
+import React, { useEffect, useState } from "react";
 import {
   FlatList,
   StyleSheet,
-  Text,
   View,
   ImageBackground,
+  useWindowDimensions,
+  Button, // Importa Button desde react-native
 } from "react-native";
 import { colors } from "../constants/colors";
 import CategoryItem from "../components/CategoryItem";
 import categories from "../data/categories.json";
 
+
 const Home = ({ navigation }) => {
+  const [orientation, setOrientation] = useState("portrait");
+  const { width, height } = useWindowDimensions();
+
+  useEffect(() => {
+    if (width > height) setOrientation("landscape");
+    else setOrientation("portrait");
+  }, [width, height]);
+
   return (
     <View style={styles.contentContainer}>
-      <ImageBackground
-        source={require("../../assets/detailing1.jpg")}
-        style={styles.logoStyle}
-      >
-        <View style={styles.flatStyles}>
+
+      {orientation === "portrait" && (
+        <View style={styles.buttonContainer}>
+     <Button
+  title="Obtener tu Horóscopo de Hoy"
+  onPress={() => navigation.navigate("HoroscopeS")}
+/>
+        </View>
+      )}
+      {orientation === "portrait" ? (
+        <View style={styles.portraitContainer}>
+          <ImageBackground
+            source={require("../../assets/toques.webp")}
+            style={styles.backgroundImage}
+          ></ImageBackground>
+
           <FlatList
+            style={styles.flatListPortrait}
             keyExtractor={(item) => item}
             data={categories.sort()}
             renderItem={({ item }) => (
@@ -26,7 +50,22 @@ const Home = ({ navigation }) => {
             )}
           />
         </View>
-      </ImageBackground>
+      ) : (
+        <View style={styles.landscapeContainer}>
+          <ImageBackground
+            source={require("../../assets/toques.webp")}
+            style={styles.imageLandscape}
+          />
+          <FlatList
+            style={styles.flatListLandscape}
+            keyExtractor={(item) => item}
+            data={categories.sort()}
+            renderItem={({ item }) => (
+              <CategoryItem navigation={navigation} category={item} />
+            )}
+          />
+        </View>
+      )}
     </View>
   );
 };
@@ -34,33 +73,50 @@ const Home = ({ navigation }) => {
 export default Home;
 
 const styles = StyleSheet.create({
-  logoStyle: {
+  contentContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    height: "30%",
-    width: "100%",
-    opacity: 0.9,
-    marginTop: 3,
   },
-  contentContainer: {
+  backgroundImage: {
     flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    opacity: 0.9,
     height: "100%",
     width: "100%",
+  },
+  portraitContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    marginTop: 30,
+  },
+  flatListPortrait: {
+    flex: 1,
+    width: "82%",
     marginTop: 20,
   },
-  flatStyles: {
-    backgroundColor: "red",
-    marginTop: 100,
-    height: "50%",
-    width: "85%",
-    gap: 20,
-    shadowColor: colors.lightColor,
-    shadowOffset: {
-      width: 10,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
+  landscapeContainer: {
+    flex: 1,
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    width: "95%",
+    height: "100%",
+    marginLeft: 50,
+  },
+  imageLandscape: {
+    flex: 1,
+    height: "100%",
+    width: "70%",
+  },
+  flatListLandscape: {
+    flex: 1,
+    width: "100%",
+  },
+  buttonContainer: {
+    marginTop: 20,
   },
 });

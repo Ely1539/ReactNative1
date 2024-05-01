@@ -26,12 +26,12 @@ const ProductItem = ({ item, setProductSelected = () => {}, navigation }) => {
 
 const styles = StyleSheet.create({
   image: {
-    marginBottom: 10,
-    width: "100%",
-    height: 200,
-    marginTop: 1,
+  marginTop: 30,
+
+    width: "48%",
+    height: "100%",
     shadowColor: colors.lightColor,
-    borderColor: colors.lightColor,
+    borderColor: colors.cardColor,
     borderWidth: 1,
     shadowOffset: {
       width: 10,
@@ -43,20 +43,20 @@ const styles = StyleSheet.create({
 
   textCategory: {
     color: colors.lightColor,
-    textAlign: "right",
-    height: "18%",
-    width: "93%",
+    height: 20,
+    width: "100%",
     fontFamily: "Josefine",
-    marginTop: 1,
-    left: 20,
     fontSize: 18,
-    gap: 15,
+  
+    
   },
 
   cardDetailStyle: {
-    backgroundColor: colors.cardColor,
-    width: "100%",
-    height: "22%",
+    width: "200%",
+    height: 150,
+    marginTop:30,
+
+
   },
 });
 

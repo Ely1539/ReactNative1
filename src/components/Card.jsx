@@ -10,11 +10,6 @@ export default Card;
 
 const styles = StyleSheet.create({
   containerCard: {
-    marginTop: 10,
     backgroundColor: colors.cardColor,
-    width: 20,
-    shadowColor: colors.lightColor,
-    shadowOpacity: 0.7,
-    shadowRadius: 2.65,
   },
 });
