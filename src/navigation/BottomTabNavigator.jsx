@@ -16,11 +16,13 @@ const Tab = createBottomTabNavigator()
 const BottomTabNavigator = () => {
     return (
         <Tab.Navigator
+
+        
             screenOptions={({ route }) => ({
                 header: () => {
                     return <Header route={route} />
                 },
-                tabBarShowLabel: true,
+                tabBarShowLabel: false,
                 tabBarStyle: styles.tabBar,
             })}
         >
@@ -33,8 +35,8 @@ const BottomTabNavigator = () => {
                             <View>
                                 <FontAwesome5
                                     name="store"
-                                    size={24}
-                                    color={focused ? "Red" : colors.cardScreens}
+                                    size={20}
+                                    color={focused ? "red" : colors.lightColor}
                                 />
                             </View>
                         )
@@ -50,8 +52,8 @@ const BottomTabNavigator = () => {
                             <View>
                                 <FontAwesome6
                                     name="cart-shopping"
-                                    size={24}
-                                    color={focused ? "red" : colors.cardScreens}
+                                    size={20}
+                                    color={focused ? "red" : colors.lightColor}
                                 />
                             </View>
                         )
@@ -65,7 +67,8 @@ const BottomTabNavigator = () => {
                     tabBarIcon: ({ focused }) => {
                         return (
                             <View>
-                                <Ionicons name="receipt-outline" size={24} color={ focused ? 'red' : colors.cardScreens} />
+                                <Ionicons name="receipt-outline" size={20} color={ focused ? 
+                                    'red' : colors.lightColor} />
                             </View>
                         )
                     },
@@ -96,10 +99,11 @@ export default BottomTabNavigator
 
 const styles = StyleSheet.create({
     tabBar: {
-        backgroundColor: colors.teal200,
-        shadowColor: "black",
+       backgroundColor: colors.cardColor,
+        shadowColor: "red",
         elevation: 4,
-        borderRadius: 15,
-        height: 60,
+        borderRadius: 1,
+        height: 36,
+        marginBottom: 2,
     },
 })

@@ -1,47 +1,34 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button, Alert, TextInput, ImageBackground, Pressable } from 'react-native';
+import { StyleSheet, View, Text, Button, Alert, ImageBackground, Pressable, Picker } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '../constants/colors';
 
 const Horoscope = () => {
     const navigation = useNavigation();
 
-    const [sign, setSign] = useState('');
-    const [period, setPeriod] = useState('');
-    const [language, setLanguage] = useState('');
+    const [selectedSign, setSelectedSign] = useState('');
     const [horoscope, setHoroscope] = useState('');
 
     const fetchHoroscope = async () => {
         try {
-            const signLower = sign.toLowerCase();
-            const periodLower = period.toLowerCase();
-            const languageLower = language.toLowerCase();
-
-            if (!signLower || !periodLower || !languageLower) {
-                Alert.alert('Error', 'Por favor ingrese todos los campos.');
+            if (!selectedSign) {
+                Alert.alert('Error', 'Por favor seleccione un signo zodiacal.');
                 return;
             }
 
-            const url = `https://horoscopes-ai.p.rapidapi.com/get_horoscope/${signLower}/${periodLower}/general/${languageLower}`;
-
-            const response = await fetch(url, {
+            const url = `https://best-daily-astrology-and-horoscope-api.p.rapidapi.com/api/Detailed-Horoscope/?zodiacSign=${selectedSign}`;
+            const options = {
+                method: 'GET',
                 headers: {
                     'X-RapidAPI-Key': '22d4712af9mshb9c6671f1dd9349p1cf740jsned5f8f3d2153',
-                    'X-RapidAPI-Host': 'horoscopes-ai.p.rapidapi.com'
+                    'X-RapidAPI-Host': 'best-daily-astrology-and-horoscope-api.p.rapidapi.com'
                 }
-            });
+            };
 
-            if (!response.ok) {
-                throw new Error('Error en la solicitud a la API');
-            }
-
-            const contentType = response.headers.get('content-type');
-            if (!contentType || !contentType.includes('application/json')) {
-                throw new Error('La respuesta no es de tipo JSON');
-            }
-
+            const response = await fetch(url, options);
             const data = await response.json();
-            setHoroscope(data.general[0]);
+            console.log('Respuesta de la API:', data);
+            setHoroscope(data.prediction); 
         } catch (error) {
             console.error('Error fetching horoscope:', error);
             Alert.alert('Error', 'No se pudo obtener el horóscopo. Por favor, inténtelo de nuevo más tarde.');
@@ -57,31 +44,33 @@ const Horoscope = () => {
                 source={require("../../assets/toques.webp")}
                 style={styles.imageHoroscope}
             ></ImageBackground>
-            <TextInput
+            <Picker
+                selectedValue={selectedSign}
+                onValueChange={(itemValue ) =>
+                    setSelectedSign(itemValue)
+                }
                 style={styles.input}
-                onChangeText={setSign}
-                value={sign}
-                placeholder="Signo zodiacal"
-            />
-            <TextInput
-                style={styles.input}
-                onChangeText={setPeriod}
-                value={period}
-                placeholder="Período (ejemplo: today, weekly, monthly)"
-            />
-            <TextInput
-                style={styles.input}
-                onChangeText={setLanguage}
-                value={language}
-                placeholder="Idioma (ejemplo: en, es, fr)"
-            />
+            >
+                <Picker.Item label="Seleccione un signo zodiacal" value="" />
+                <Picker.Item label="Aries" value="aries" />
+                <Picker.Item label="Tauro" value="taurus" />
+                <Picker.Item label="Geminis" value="gemini" />
+                <Picker.Item label="Cancer" value="cancer" />
+                <Picker.Item label="Leo" value="leo" />
+                <Picker.Item label="Virgo" value="virgo" />
+                <Picker.Item label="Libra" value="libra" />
+                <Picker.Item label="sagitario" value="sagittarius" />
+                <Picker.Item label="Capriconio" value="capricorn" />
+                <Picker.Item label="Acuario" value="aquarius" />
+                <Picker.Item label="Piscis" value="pisces" />
+              
+            </Picker>
             <Button
                 title="Obtener Horóscopo"
                 onPress={fetchHoroscope}
             />
 
-            {/* Código para mostrar el horóscopo */}
-            {horoscope && (
+            {horoscope !== '' && (
                 <View style={styles.horoscopeContainer}>
                     <Text style={styles.horoscopeText}>Horóscopo: {horoscope}</Text>
                 </View>
@@ -101,8 +90,8 @@ const styles = StyleSheet.create({
     input: {
         width: '80%',
         height: 40,
-        borderColor: 'white',
-        color: colors.lightColor,
+        borderColor: colors.lightColor,
+        color: colors.cardColor,
         backgroundColor: colors.lightColor,
         borderWidth: 1,
         marginBottom: 20,
@@ -110,8 +99,10 @@ const styles = StyleSheet.create({
     },
     
     horoscopeText: {
-        fontSize: 18,
+        fontSize: 14, 
         color: colors.lightColor,
+        fontStyle: 'italic', 
+        textAlign: 'center', 
     },
     imageHoroscope: {
         flex: 0.8,
@@ -120,7 +111,6 @@ const styles = StyleSheet.create({
         opacity: 0.9,
         height: "80%",
         width: "100%",
-
     },
 
     buttonHoroscope: {
@@ -138,9 +128,5 @@ const styles = StyleSheet.create({
 });
 
 export default Horoscope;
-
-
-
-
 
 

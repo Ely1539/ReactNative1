@@ -11,7 +11,7 @@ const CartItem = ({ cartItem }) => {
                 <Text style={styles.text2}>{cartItem.brand}</Text>
                 <Text style={styles.text2}>${cartItem.price}</Text>
             </View>
-            <Entypo name="trash" size={30} color="black" />
+            <Entypo name="erase" size={30} color="red" />
         </View>
     );
 };
@@ -20,10 +20,9 @@ export default CartItem;
 
 const styles = StyleSheet.create({
     card: {
-        height: 100,
-        backgroundColor: colors.platinum,
-        padding: 10,
-        margin: 10,
+        height: 80,
+        backgroundColor: colors.cardScreens,
+        margin: 20,
         borderWidth: 2,
         borderRadius: 10,
         flexDirection: "row",
@@ -31,7 +30,7 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     textContainer: {
-        width: "70%",
+        width: "90%",
         flexDirection: "column",
         justifyContent: "flex-start",
         alignItems: "flex-start",
@@ -39,11 +38,11 @@ const styles = StyleSheet.create({
     text: {
         fontFamily: "Josefin",
         fontSize: 19,
-        color: colors.teal400,
+        color: colors.lightColor,
     },
     text2: {
         fontFamily: "Josefin",
         fontSize: 14,
-        color: colors.teal600,
+        color: colors.lightColor,
     },
 });
