@@ -1,48 +1,77 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
+import React, { useState } from "react";
 import { colors } from "../constants/colors";
 import { Entypo } from "@expo/vector-icons";
 
-const CartItem = ({ cartItem }) => {
-    return (
-        <View style={styles.card} onPress={() => {}}>
-            <View style={styles.textContainer}>
-                <Text style={styles.text}>{cartItem.title} ({cartItem.quantity})</Text>
-                <Text style={styles.text2}>{cartItem.brand}</Text>
-                <Text style={styles.text2}>${cartItem.price}</Text>
-            </View>
-            <Entypo name="erase" size={30} color="red" />
-        </View>
-    );
+const CartItem = ({ cartItem, updateTotal }) => {
+  const [quantity, setQuantity] = useState(cartItem.quantity);
+
+  const increaseQuantity = () => {
+    setQuantity((prevQuantity) => prevQuantity + 1);
+    updateTotal(cartItem.price);
+  };
+
+  const decreaseQuantity = () => {
+    if (quantity > 1) {
+      setQuantity((prevQuantity) => prevQuantity - 1);
+      updateTotal(-cartItem.price);
+    }
+  };
+
+  return (
+    <View style={styles.card}>
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>
+          {cartItem.title} ({quantity})
+        </Text>
+        <Text style={styles.text2}>{cartItem.brand}</Text>
+        <Text style={styles.text2}>${cartItem.price * quantity}</Text>
+      </View>
+      <View style={styles.quantityContainer}>
+        <TouchableOpacity onPress={increaseQuantity}>
+          <Entypo name="plus" size={24} color="green" />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={decreaseQuantity}>
+          <Entypo name="minus" size={24} color="red" />
+        </TouchableOpacity>
+      </View>
+    </View>
+  );
 };
 
-export default CartItem;
-
 const styles = StyleSheet.create({
-    card: {
-        height: 80,
-        backgroundColor: colors.cardScreens,
-        margin: 20,
-        borderWidth: 2,
-        borderRadius: 10,
-        flexDirection: "row",
-        justifyContent: "space-between",
-        alignItems: "center",
-    },
-    textContainer: {
-        width: "90%",
-        flexDirection: "column",
-        justifyContent: "flex-start",
-        alignItems: "flex-start",
-    },
-    text: {
-        fontFamily: "Josefin",
-        fontSize: 19,
-        color: colors.lightColor,
-    },
-    text2: {
-        fontFamily: "Josefin",
-        fontSize: 14,
-        color: colors.lightColor,
-    },
+  card: {
+    height: 160,
+    backgroundColor: "white",
+    margin: 10,
+    borderWidth: 2,
+    borderRadius: 10,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    fontFamily: "Josefin",
+  },
+  textContainer: {
+    marginLeft: 20,
+    height: "90%",
+    width: "50%",
+    flexDirection: "column",
+  },
+  text: {
+    fontFamily: "Josefin",
+    fontSize: 19,
+    color: colors.lightColor,
+  },
+  text2: {
+    fontFamily: "Jersey",
+    fontSize: 14,
+    color: colors.lightColor,
+  },
+  quantityContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginRight: 20,
+  },
 });
+
+export default CartItem;

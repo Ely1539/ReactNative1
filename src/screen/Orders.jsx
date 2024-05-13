@@ -1,14 +1,25 @@
-import { StyleSheet, Text, View } from 'react-native'
+import { FlatList, StyleSheet, View } from 'react-native'
 import React from 'react'
+import OrderData from '../data/orders.json';
+import OrderItem from '../components/OrderItem';
 
-const CartTemp = () => {
-  return (
-    <View>
-      <Text>CartTemp</Text>
-    </View>
-  )
+const OrdersScreen = () => {
+    return (
+        <View>
+     
+            <FlatList
+                data={OrderData}
+                keyExtractor={orderItem => orderItem.id}
+                renderItem={({ item }) => (
+                    <OrderItem
+                        orderItem={item}
+                    />
+                )}
+            />
+        </View>
+    );
 }
 
-export default CartTemp
+export default OrdersScreen;
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({});

@@ -11,6 +11,5 @@ export default Card;
 const styles = StyleSheet.create({
   containerCard: {
     backgroundColor: colors.cardScreens,
-
   },
 });

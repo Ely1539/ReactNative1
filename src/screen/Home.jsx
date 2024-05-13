@@ -11,6 +11,8 @@ import {
 import { colors } from "../constants/colors";
 import CategoryItem from "../components/CategoryItem";
 import categories from "../data/categories.json";
+import Counter from '../components/Counter';
+
 
 const Home = ({ navigation }) => {
   const [orientation, setOrientation] = useState("portrait");
@@ -22,13 +24,14 @@ const Home = ({ navigation }) => {
   }, [width, height]);
 
   return (
+ 
     <View style={styles.contentContainer}>
       {orientation === "portrait" && (
         <View style={styles.buttonContainer}>
           <Pressable
             style={styles.pressableHome}
             onPress={() => navigation.navigate("HoroscopeS")}
-          >
+          >  
             <Text style={styles.buttonText}>Obtene tu Horóscopo de Hoy</Text>
           </Pressable>
         </View>
@@ -39,8 +42,12 @@ const Home = ({ navigation }) => {
             source={require("../../assets/toques.webp")}
             style={styles.backgroundImage}
           ></ImageBackground>
-
+       <View>
+      
+      </View>
+      <Counter />  
           <FlatList
+            
             style={styles.flatListPortrait}
             keyExtractor={(item) => item}
             data={categories.sort()}
@@ -55,6 +62,7 @@ const Home = ({ navigation }) => {
             source={require("../../assets/toques.webp")}
             style={styles.imageLandscape}
           />
+
           <FlatList
             style={styles.flatListLandscape}
             keyExtractor={(item) => item}
@@ -65,6 +73,7 @@ const Home = ({ navigation }) => {
           />
         </View>
       )}
+    
     </View>
   );
 };

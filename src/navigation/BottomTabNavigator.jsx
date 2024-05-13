@@ -1,109 +1,93 @@
-import React from "react"
-import { StyleSheet, View } from "react-native"
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs"
-import HomeStackNavigator from "./HomeStackNavigator"
-import { colors } from "../constants/colors"
-import CartStack from "./CartStackNavigator"
-import OrderStack from "./OrderStackNavigator"
-import Header from "../components/Header"
-import { FontAwesome5, FontAwesome6 } from "@expo/vector-icons"
-import { Ionicons } from "@expo/vector-icons"
-import CartTemp from "../screen/CartTemp"
-import OrderStackNavigator from "./OrderStackNavigator"
+import React from "react";
+import { StyleSheet, View } from "react-native";
+import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import HomeStackNavigator from "./HomeStackNavigator";
+import { colors } from "../constants/colors";
+import CartStack from "./CartStackNavigator";
+import OrderStack from "./OrderStackNavigator";
+import Header from "../components/Header";
+import { FontAwesome5, FontAwesome6 } from "@expo/vector-icons";
+import { Ionicons } from "@expo/vector-icons";
+import CartTemp from "../screen/CartTemp";
+import OrderStackNavigator from "./OrderStackNavigator";
 
-const Tab = createBottomTabNavigator()
+const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
-    return (
-        <Tab.Navigator
+  return (
+    <Tab.Navigator
+      screenOptions={({ route }) => ({
+        header: () => {
+          return <Header route={route} />;
+        },
+        tabBarShowLabel: true,
+        tabBarStyle: styles.tabBar,
+      })}
+    >
+      <Tab.Screen
+        name="Mi Tienda"
+        component={HomeStackNavigator}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View>
+                <FontAwesome6
+                  name="shop"
+                  size={27}
+                  color={focused ? "red" : colors.lightColor}
+                />
+              </View>
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Mi Carrito"
+        component={CartStack}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View>
+                <FontAwesome6
+                  name="opencart"
+                  size={28}
+                  color={focused ? "red" : colors.lightColor}
+                />
+              </View>
+            );
+          },
+        }}
+      />
+      <Tab.Screen
+        name="Mis Ordenes"
+        component={OrderStack}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View>
+                <FontAwesome5
+                  name="money-bill-alt"
+                  size={35}
+                  color={focused ? "red" : colors.lightColor}
+                />
+              </View>
+            );
+          },
+        }}
+      />
+    </Tab.Navigator>
+  );
+};
 
-        
-            screenOptions={({ route }) => ({
-                header: () => {
-                    return <Header route={route} />
-                },
-                tabBarShowLabel: false,
-                tabBarStyle: styles.tabBar,
-            })}
-        >
-            <Tab.Screen
-                name="Shop"
-                component={HomeStackNavigator}
-                options={{
-                    tabBarIcon: ({ focused }) => {
-                        return (
-                            <View>
-                                <FontAwesome5
-                                    name="store"
-                                    size={20}
-                                    color={focused ? "red" : colors.lightColor}
-                                />
-                            </View>
-                        )
-                    },
-                }}
-            />
-            <Tab.Screen
-                name="Cart"
-                component={CartStack}
-                options={{
-                    tabBarIcon: ({ focused }) => {
-                        return (
-                            <View>
-                                <FontAwesome6
-                                    name="cart-shopping"
-                                    size={20}
-                                    color={focused ? "red" : colors.lightColor}
-                                />
-                            </View>
-                        )
-                    },
-                }}
-            />
-            <Tab.Screen 
-                name="Orders"
-                component={OrderStack}
-                options={{
-                    tabBarIcon: ({ focused }) => {
-                        return (
-                            <View>
-                                <Ionicons name="receipt-outline" size={20} color={ focused ? 
-                                    'red' : colors.lightColor} />
-                            </View>
-                        )
-                    },
-                }}
-            />
-            {/* <Tab.Screen
-                name="Orders"
-                component={OrdersTemp}
-                options={{
-                    tabBarIcon: ({ focused }) => {
-                        return (
-                            <View>
-                                <Ionicons
-                                    name="receipt"
-                                    size={24}
-                                    color={focused ? "black" : colors.teal600}
-                                />
-                            </View>
-                        )
-                    },
-                }}
-            /> */}
-        </Tab.Navigator>
-    )
-}
-
-export default BottomTabNavigator
+export default BottomTabNavigator;
 
 const styles = StyleSheet.create({
-    tabBar: {
-       backgroundColor: colors.cardColor,
-        shadowColor: "red",
-        elevation: 4,
-        borderRadius: 1,
-        height: 36,
-        marginBottom: 2,
-    },
-})
+  tabBar: {
+    backgroundColor: colors.cardColor,
+    shadowColor: "red",
+    elevation: 4,
+    borderRadius: 20,
+    height: 56,
+    marginBottom: 2,
+  },
+});

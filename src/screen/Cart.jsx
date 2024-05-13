@@ -1,54 +1,53 @@
-import { FlatList, Pressable, StyleSheet, Text, View } from 'react-native'
-import React from 'react'
-import CartData from '../data/categories.json';
-import CartItem from '../components/CartItem';
+import React, { useState } from "react";
+import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import CartData from "../data/cart.json";
+import CartItem from "../components/CartItem";
 
 const Cart = () => {
-     console.log(CartData);
-    const total = CartData.reduce((acumulador, currentItem) => acumulador += currentItem.price * currentItem.quantity, 0)
+  const [total, setTotal] = useState(calculateTotal());
 
-    let total2 = 0
-    for (const currentItem of CartData) {
-        console.log(currentItem.id);
-        total2 += currentItem.price * currentItem.quantity
-    }
-    
-    return (
+  function calculateTotal() {
+    return CartData.reduce(
+      (accumulator, currentItem) =>
+        (accumulator += currentItem.price * currentItem.quantity),
+      0
+    );
+  }
+
+  function updateTotal(change) {
+    setTotal((prevTotal) => prevTotal + change);
+  }
+
+  return (
     <View style={styles.container}>
-        <FlatList
-            data={CartData}
-            keyExtractor={pepe => pepe.id}
-            renderItem={({item})=> {
-                return (
-                    <CartItem
-                        cartItem={item}
-                    />
-                )
-            }}
-        />
-        <View style={styles.totalContainer}>
-            <Pressable>
-                <Text>
-                    Confirm
-                </Text>
-            </Pressable>
-            <Text>Total: ${total}</Text>
-        </View>
+      <FlatList
+        data={CartData}
+        keyExtractor={(cart) => cart.id}
+        renderItem={({ item }) => (
+          <CartItem cartItem={item} updateTotal={updateTotal} />
+        )}
+      />
+      <View style={styles.totalContainer}>
+        <Pressable>
+          <Text>Confirm</Text>
+        </Pressable>
+        <Text>Total: ${total}</Text>
+      </View>
     </View>
-  )
-}
-
-export default Cart
+  );
+};
 
 const styles = StyleSheet.create({
-    container: {
-        justifyContent: 'space-between',
-        flex: 1,
-        marginBottom: 120,
-    },
-    totalContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-    }
-})
+  container: {
+    justifyContent: "space-between",
+    flex: 1,
+    marginBottom: 120,
+  },
+  totalContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+});
+
+export default Cart;

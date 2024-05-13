@@ -6,12 +6,16 @@ import { View } from "react-native-web";
 
 const ProductItem = ({ item, setProductSelected = () => {}, navigation }) => {
   return (
-    <Card style={styles.cardDetailStyle}><Pressable
-    style={styles.Pressable}
-    onPress={() =>
-      navigation.navigate("ItemDetail", { productId: item.id, productName: item.title })
-    }
-  >
+    <Card style={styles.cardDetailStyle}>
+      <Pressable
+        style={styles.Pressable}
+        onPress={() =>
+          navigation.navigate("ItemDetail", {
+            productId: item.id,
+            productName: item.title,
+          })
+        }
+      >
         <Text style={styles.textCategory}>{item.title}</Text>
         <Image
           resizeMode="cover"
@@ -25,7 +29,7 @@ const ProductItem = ({ item, setProductSelected = () => {}, navigation }) => {
 
 const styles = StyleSheet.create({
   image: {
-  marginTop: 30,
+    marginTop: 30,
     width: "48%",
     height: "100%",
     shadowColor: colors.lightColor,
@@ -45,16 +49,12 @@ const styles = StyleSheet.create({
     width: "100%",
     fontFamily: "Josefine",
     fontSize: 18,
-  
-    
   },
 
   cardDetailStyle: {
     width: "200%",
     height: 150,
-    marginTop:30,
-
-
+    marginTop: 30,
   },
 });
 
