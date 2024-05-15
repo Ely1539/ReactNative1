@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { StyleSheet, View, Text, Button, Alert, ImageBackground, Pressable, Picker } from 'react-native';
+import { StyleSheet, View, Text, Button, Alert, ImageBackground, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { colors } from '../constants/colors';
+import { Picker } from "@react-native-picker/picker";
+
 
 const Horoscope = () => {
     const navigation = useNavigation();

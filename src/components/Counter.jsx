@@ -7,12 +7,13 @@ import {
   increment,
   incrementByAmount,
   reset,
-} from "../features/Counter/CounterSlice";
+} 
+ from "../features/Counter/counterSlice";
 
 const Counter = () => {
   const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch();
-  const [inputToAdd, setInputToAdd] = useState(null);
+  const [inputToAdd, setInputToAdd] = useState("");
 
   return (
     <View style={styles.container}>

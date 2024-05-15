@@ -32,24 +32,23 @@ const Search = ({ onSearch = () => {}, error = "", goBack = () => {} }) => {
 
 const styles = StyleSheet.create({
   input: {
-    height: 50,
-    width: "95%",
+    height: 30,
+    width: 180,
     borderWidth: 1,
     borderRadius: 10,
-
-    paddingHorizontal: 80,
+    paddingHorizontal: 4,
     backgroundColor: "white",
-    marginTop: 20,
-    marginLeft: 10,
+    marginTop: 12,
+    marginLeft: 1,
     marginBottom: 10,
   },
 
   iconContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
-    marginLeft: 170,
-    marginTop: 30,
-    width: "60%",
+    marginLeft: 150,
+    marginTop: 5,
+    width: "70%",
     backgroundColor: colors.cardColor,
   },
   errorStyle: {

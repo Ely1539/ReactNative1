@@ -1,33 +1,13 @@
-import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
 import React from "react";
-import { colors } from "../constants/colors";
+import { StyleSheet, Text, View } from "react-native";
 import { useSelector } from "react-redux";
 
-const Header = ({ route }) => {
-  const categorySelected = useSelector((state) => state.shop.value.categorySelected);
-  const itemSelected = useSelector((state) => state.shop.value.itemSelected);
-
-  if (itemSelected && itemSelected.title) {
-    headerText = itemSelected.title;
-  } else if (categorySelected) {
-
-    headerText = categorySelected;
-  } else if (route.name) {
-    
-    headerText = route.name;
-  }
+const Header = () => {
+  const headerText = useSelector((state) => state.shop.value.headerText);
 
   return (
     <View style={styles.headerContainer}>
-      {itemSelected && itemSelected.title && (
-        <Text style={styles.headerText}>{itemSelected.title}</Text>
-      )}
-      {categorySelected && !itemSelected && (
-        <Text style={styles.headerText}>{categorySelected}</Text>
-      )}
-      {!itemSelected && !categorySelected && route.name && (
-        <Text style={styles.headerText}>{route.name}</Text>
-      )}
+      <Text style={styles.headerText}>{headerText}</Text>
     </View>
   );
 };
@@ -35,31 +15,28 @@ const Header = ({ route }) => {
 const styles = StyleSheet.create({
   headerContainer: {
     justifyContent: "center",
-    marginTop: 30,
+    marginTop: 28,
     marginLeft: 10,
     width: "75%",
-    height: 50,
-    shadowColor: colors.cardColor,
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
+    height: 30,
     elevation: 2,
-    backgroundColor: "red",
-    borderWidth: 1,
-    borderColor: colors.cardColor,
-    borderRadius: 20,
+    borderRadius: 3,
+    backgroundColor: "#fff",
   },
   headerText: {
     fontSize: 16,
-    color: "white",
+    color: "black",
     textAlign: "center",
     fontFamily: "Josefin",
   },
 });
 
 export default Header;
+
+
+
+
+
+
 
 

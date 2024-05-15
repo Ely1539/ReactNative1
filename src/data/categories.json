@@ -1,11 +1,45 @@
 [
-  " Cartas, tarot y oráculos",
-  "Diarios De Gratitud",
-  "Piedras Energeticas",
-  "Kit Energetico",
-  "Autoconocimento",
-  "Cuencos Tibetanos",
-  "Sahumerios",
-  "Meditacion"
- 
+  { "category":"Cartas, tarot y oráculos",
+  "image": [
+    "https://acdn.mitiendanube.com/stores/004/000/403/products/71-7c04666808bc05724d17058533795470-1024-1024.webp"
+  ]
+},
+{ "category":"Diarios De Gratitud",
+"image": [
+  "https://acdn.mitiendanube.com/stores/004/000/403/products/68-a915f79382bf65706317058534176953-1024-1024.webp"
+    ]
+  },
+  { "category":"Piedras Energeticas",
+"image": [
+  "https://acdn.mitiendanube.com/stores/004/000/403/products/188-af0c1cb01fedae163617133824229315-1024-1024.webp"
+  
+]
+  },
+  { "category":"Kit Energetico",
+  "image": [
+    "https://acdn.mitiendanube.com/stores/004/000/403/products/kit1-013fcb07962eeb284517057800330030-1024-1024.webp"
+  ]
+    },
+    { "category":"Autoconocimento",
+    "image": [
+      "https://acdn.mitiendanube.com/stores/004/000/403/products/178-dad7b44c4d2138f10217133814018705-1024-1024.webp"
+
+    ]
+      },
+    { "category":"Cuencos Tibetanos",
+    "image": [
+      "https://acdn.mitiendanube.com/stores/004/000/403/products/1-ae722ac6e213d978f917056019686307-1024-1024.webp"
+
+    ]
+      },
+    { "category":"Sahumerios",
+    "image": [
+      "https://acdn.mitiendanube.com/stores/004/000/403/products/69-4a929b0ac926f6375317056138028245-1024-1024.webp"
+    ]
+      },
+    { "category":"Meditacion",
+    "image": [
+      "https://acdn.mitiendanube.com/stores/004/000/403/products/pendulo2-f5801e70441aed10c717133848106607-1024-1024.webp"
+    ]
+      }
 ]

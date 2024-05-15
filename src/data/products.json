@@ -8,7 +8,7 @@
     "rating": 4.69,
     "stock": 20,
     "brand": "Stellium",
-    "category": " Cartas, tarot y oráculos",
+    "category": "Cartas, tarot y oráculos",
     "thumbnail":   "https://acdn.mitiendanube.com/stores/004/000/403/products/71-7c04666808bc05724d17058533795470-1024-1024.webp",
    
     "images": [
@@ -24,7 +24,7 @@
     "rating": 4.44,
     "stock": 14,
     "brand": "Fera",
-    "category": " Cartas, tarot y oráculos",
+    "category": "Cartas, tarot y oráculos",
     "thumbnail": "https://acdn.mitiendanube.com/stores/004/000/403/products/146-74d54019a0c5fe8fcf17096772675271-1024-1024.webp"
     ,
     "images": [
@@ -41,7 +41,7 @@
     "rating": 4.09,
     "stock": 36,
     "brand": "Fera",
-    "category": " Cartas, tarot y oráculos",
+    "category": "Cartas, tarot y oráculos",
     "thumbnail": "https://acdn.mitiendanube.com/stores/004/000/403/products/magas_fotosprod5-d4ce13220a21ab2b5017023206250827-1024-1024.webp",
     "images": [ "https://acdn.mitiendanube.com/stores/004/000/403/products/magas_fotosprod5-d4ce13220a21ab2b5017023206250827-1024-1024.webp"
   ]
@@ -55,7 +55,7 @@
     "rating": 4.3,
     "stock": 13,
     "brand": "Fera",
-    "category": " Cartas, tarot y oráculos",
+    "category": "Cartas, tarot y oráculos",
     "thumbnail": "https://acdn.mitiendanube.com/stores/004/000/403/products/vibraralto_fotosprod6-4160982c0736de862917023179616407-1024-1024.webp",
     "images": [
       "https://acdn.mitiendanube.com/stores/004/000/403/products/vibraralto_fotosprod6-4160982c0736de862917023179616407-1024-1024.webp"
@@ -86,7 +86,7 @@
     "rating": 4.57,
     "stock": 3,
     "brand": "Raider Waite",
-    "category": " Cartas, tarot y oráculos",
+    "category": "Cartas, tarot y oráculos",
     "thumbnail": "https://acdn.mitiendanube.com/stores/004/000/403/products/50-cd67884d58f90b232517058497639523-1024-1024.webp",
 
     "images": [
@@ -103,7 +103,7 @@
     "rating": 4.25,
     "stock": 50,
     "brand": "Fera",
-    "category": " Cartas, tarot y oráculos",
+    "category": "Cartas, tarot y oráculos",
     "thumbnail": "https://acdn.mitiendanube.com/stores/004/000/403/products/173-85830fb2bd92db0f2017133798332341-1024-1024.webp",
     "images": [
       "https://acdn.mitiendanube.com/stores/004/000/403/products/173-85830fb2bd92db0f2017133798332341-1024-1024.webp"
@@ -118,7 +118,7 @@
     "rating": 4.43,
     "stock": 68,
     "brand": "Iluminarte",
-    "category": " Cartas, tarot y oráculos",
+    "category": "Cartas, tarot y oráculos",
     "thumbnail": "https://acdn.mitiendanube.com/stores/004/000/403/products/56-f1b540beca1f2214bc17058503484035-1024-1024.webp",
     "images": [
       "https://acdn.mitiendanube.com/stores/004/000/403/products/56-f1b540beca1f2214bc17058503484035-1024-1024.webp"
@@ -133,7 +133,7 @@
     "rating": 4.54,
     "stock": 6,
     "brand": "4 Elements",
-    "category": " Cartas, tarot y oráculos",
+    "category": "Cartas, tarot y oráculos",
     "thumbnail": "https://acdn.mitiendanube.com/stores/004/000/403/products/190-c0b4dc1868287f970317133837056382-1024-1024.webp",
     "images": [
       "https://acdn.mitiendanube.com/stores/004/000/403/products/190-c0b4dc1868287f970317133837056382-1024-1024.webp"
@@ -172,7 +172,7 @@
   },
   {
     "id": 12,
-    "title": "Lámpara de Sal: Iluminá tu Espacio con Energía Pura y Relajante",
+    "title": "Lámpara de Sal: Iluminá tu Espacio con Energía Pura ",
     "description": "Llevate a tu casa una onda diferente con nuestra Lámpara de Sal. No es cualquier luz, es un pedacito de la naturaleza que te va a ayudar a relajarte y a purificar el ambiente. Con un diseño único que tira una luz cálida y suave, perfecta para crear un clima copado en cualquier rincón de tu hogar.",
     "price": 18600,
     "discountPercentage": 15.66,
@@ -262,8 +262,6 @@
 
     "images": [
       "https://acdn.mitiendanube.com/stores/004/000/403/products/102-7bdf616aa0b4f453c817059579318268-1024-1024.webp"
-
-
     ]
   },
   {
@@ -405,7 +403,7 @@
   },
   {
     "id": 27,
-    "title": "Rocío Áurico: Eleva tu Energía y Atrae lo Mejor",
+    "title": "Rocío Áurico: Eleva tu Energía ",
     "description": "Nuestros Rocíos Áuricos están especialmente formulados para transformar tu aura y tu espacio personal con vibraciones específicas según tus necesidades: Prosperidad, Armonización de Chakras y Atracción. Cada spray está infusionado con una mezcla única de esencias y cristales, diseñado para elevar tu energía y facilitar un ambiente de bienestar y abundancia.",
     "price": 2050,
     "discountPercentage": 10,

@@ -17,7 +17,7 @@ const ItemDetail = ({ route, navigation }) => {
 
   const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
-  const { width, height } = useWindowDimensions();
+
   const { productId: itemSelected } = route.params;
 
   useEffect(() => {
@@ -31,7 +31,6 @@ const ItemDetail = ({ route, navigation }) => {
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
   };
-
   return (
     <View>
       <Pressable onPress={() => navigation.goBack()} style={styles.button}>
@@ -81,7 +80,7 @@ const styles = StyleSheet.create({
   button: {
     marginTop: 20,
     height: 40,
-    width: "60%",
+    width: "90%",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: colors.cardColor,

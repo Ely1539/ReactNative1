@@ -10,15 +10,19 @@ const OrderItem = ({ orderItem }) => {
   );
 
   return (
+    
     <View style={styles.card}>
       <View style={styles.textContainer}>
         <Text style={styles.text}>
           {new Date(orderItem.createdAt).toLocaleString()}
+     
         </Text>
         <Text style={styles.text2}>${total}</Text>
       </View>
+     
       <Feather name="search" size={30} color="red" />
     </View>
+
   );
 };
 
@@ -51,6 +55,7 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: colors.lightColor,
   },
+  
 });
 
 export default OrderItem;

@@ -83,11 +83,9 @@ export default BottomTabNavigator;
 
 const styles = StyleSheet.create({
   tabBar: {
-    backgroundColor: colors.cardColor,
-    shadowColor: "red",
-    elevation: 4,
-    borderRadius: 20,
-    height: 56,
-    marginBottom: 2,
+    backgroundColor: colors.cardScreens,
+
+    height: 48,
+   
   },
 });

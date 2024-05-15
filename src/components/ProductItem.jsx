@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Image, Text, Pressable } from "react-native";
 import Card from "./Card";
 import { colors } from "../constants/colors";
-import { View } from "react-native-web";
+
 
 const ProductItem = ({ item, setProductSelected = () => {}, navigation }) => {
   return (
@@ -29,18 +29,12 @@ const ProductItem = ({ item, setProductSelected = () => {}, navigation }) => {
 
 const styles = StyleSheet.create({
   image: {
-    marginTop: 30,
-    width: "48%",
+    marginTop: 20,
+    width: "80%",
     height: "100%",
-    shadowColor: colors.lightColor,
-    borderColor: colors.cardColor,
+    borderColor:"red",
     borderWidth: 1,
-    shadowOffset: {
-      width: 10,
-      height: 3,
-    },
-    shadowOpacity: 0.27,
-    shadowRadius: 4.65,
+
   },
 
   textCategory: {
@@ -54,7 +48,7 @@ const styles = StyleSheet.create({
   cardDetailStyle: {
     width: "200%",
     height: 150,
-    marginTop: 30,
+    marginTop: 10,
   },
 });
 
