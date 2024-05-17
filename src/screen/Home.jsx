@@ -60,7 +60,7 @@ export const Home = ({ navigation }) => {
           />
           <FlatList
             style={styles.flatListLandscape}
-            keyExtractor={(item, index) => index.toString()}
+            keyExtractor={(product, index) => index.toString()}
             data={categories}
             renderItem={({ item }) => (
               <CategoryItem

@@ -1,1 +1,0 @@
-export const baseUrl = "https://reactnative-rangel-default-rtdb.firebaseio.com/"

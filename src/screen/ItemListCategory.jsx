@@ -4,6 +4,7 @@ import { colors } from "../constants/colors";
 import allProducts from "../data/products.json";
 import ProductItem from "../components/ProductItem";
 import Search from "../components/Search";
+import { useGetProductByIdQuery } from "../services/shopService";
 
 const ItemListCategory = ({ navigation, route }) => {
   const [keyword, setKeyword] = useState("");
@@ -12,6 +13,11 @@ const ItemListCategory = ({ navigation, route }) => {
   const { category: categorySelected } = route.params;
   const { width, height } = useWindowDimensions();
   const isPortrait = height > width;
+  const {data: productFetched, error: errorFromFetched, isLoading} = useGetProductByIdQuery(categorySelected);
+
+  console.log(productFetched);
+  console.log(errorFromFetched);
+  console.log(isLoading);
 
   useEffect(() => {
     const regex = /\d/;
@@ -41,11 +47,11 @@ const ItemListCategory = ({ navigation, route }) => {
         goBack={() => navigation.goBack()}
       />
       <FlatList
-        data={filteredProducts}
+        data={productFetched} 
         renderItem={({ item }) => (
-          <ProductItem key={item.id} item={item} navigation={navigation} />
+          <ProductItem  product={item} navigation={navigation} />
         )}
-        contentContainerStyle={styles.flatListContainer}
+ keyExtractor={(product) => product.id}
       />
     </View>
   );
@@ -75,6 +81,7 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 1700,
     gap: 140,
+    backgroundColor: colors.light,
   },
 });
 
