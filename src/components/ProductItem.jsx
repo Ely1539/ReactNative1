@@ -4,23 +4,23 @@ import Card from "./Card";
 import { colors } from "../constants/colors";
 
 
-const ProductItem = ({ product, setProductSelected = () => {}, navigation }) => {
+const ProductItem = ({ item, setProductSelected = () => {}, navigation }) => {
   return (
     <Card style={styles.cardDetailStyle}>
       <Pressable
         style={styles.Pressable}
         onPress={() =>
           navigation.navigate("ItemDetail", {
-            productId: product.id,
-            productName: product.title,
+            productId: item.id,
+            productName: item.title,
           })
         }
       >
-        <Text style={styles.textCategory}>{product.title}</Text>
+        <Text style={styles.textCategory}>{item.title}</Text>
         <Image
           resizeMode="cover"
           style={styles.image}
-          source={{ uri: product.images[0] }}
+          source={{ uri: item.images[0] }}
         />
       </Pressable>
     </Card>

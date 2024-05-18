@@ -1,28 +1,28 @@
 import { useState } from "react";
-import { StyleSheet, View, Pressable, TextInput, Text } from "react-native";
-import { Feather, MaterialIcons, Octicons } from "@expo/vector-icons";
+import { StyleSheet, View, TextInput, Text } from "react-native";
+import { MaterialIcons, Feather } from "@expo/vector-icons";
 
 import { colors } from "../constants/colors";
+
 const Search = ({ onSearch = () => {}, error = "", goBack = () => {} }) => {
   const [keyword, setKeyword] = useState("");
+
+  const handleChangeText = (text) => {
+    setKeyword(text);
+    onSearch(text); 
+  };
+
   return (
     <View>
       <View style={styles.iconContainer}>
-        <Pressable onPress={() => onSearch(keyword)}>
-          <Octicons name="search" size={30} color="red" />
-        </Pressable>
-        <Pressable onPress={() => setKeyword("")}>
-          <MaterialIcons name="phonelink-erase" size={30} color="red" />
-        </Pressable>
-        <Pressable onPress={goBack}>
-          <Feather name="skip-back" size={30} color="red" />
-        </Pressable>
+        <MaterialIcons name="phonelink-erase" size={30} color="red" onPress={() => setKeyword("")} />
+        <Feather name="skip-back" size={30} color="red" onPress={goBack} />
       </View>
       <TextInput
         style={styles.input}
         placeholder="Ingresa tu búsqueda aquí..."
         value={keyword}
-        onChangeText={setKeyword}
+        onChangeText={handleChangeText} // Manejador para actualizar el texto y realizar la búsqueda
       />
 
       {error ? <Text style={styles.errorStyle}> {error}</Text> : null}
@@ -42,7 +42,6 @@ const styles = StyleSheet.create({
     marginLeft: 1,
     marginBottom: 10,
   },
-
   iconContainer: {
     flexDirection: "row",
     justifyContent: "space-around",

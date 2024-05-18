@@ -1,58 +1,53 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, FlatList, useWindowDimensions } from "react-native";
-import { colors } from "../constants/colors";
-import allProducts from "../data/products.json";
+import { StyleSheet, View, FlatList, Text, useWindowDimensions } from "react-native";
+import { useGetProductsByCategoryQuery } from "../services/shopService";
 import ProductItem from "../components/ProductItem";
 import Search from "../components/Search";
-import { useGetProductByIdQuery } from "../services/shopService";
+import { colors } from '../constants/colors';
 
 const ItemListCategory = ({ navigation, route }) => {
   const [keyword, setKeyword] = useState("");
-  const [filteredProducts, setFilteredProducts] = useState([]);
-  const [error, setError] = useState("");
   const { category: categorySelected } = route.params;
   const { width, height } = useWindowDimensions();
   const isPortrait = height > width;
-  const {data: productFetched, error: errorFromFetched, isLoading} = useGetProductByIdQuery(categorySelected);
-
-  console.log(productFetched);
-  console.log(errorFromFetched);
-  console.log(isLoading);
+  const { data: productFetched, isLoading, isError } = useGetProductsByCategoryQuery(categorySelected);
+  const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
-    const regex = /\d/;
-    const noDigits = regex.test(keyword);
-
-    if (noDigits) {
-      setError("Ingresa solo letras");
-      return;
-    } else {
-      setError("");
+    if (productFetched) {
+      const filtered = productFetched.filter(
+        (product) =>
+          product.title.toLowerCase().includes(keyword.toLowerCase()) &&
+          product.category === categorySelected
+      );
+      setFilteredProducts(filtered);
     }
+  }, [keyword, productFetched, categorySelected, isLoading, isError]);
 
-    const filtered = allProducts.filter(
-      (product) =>
-        product.category === categorySelected &&
-        product.title.toLowerCase().includes(keyword.toLowerCase())
-    );
-
-    setFilteredProducts(filtered);
-  }, [keyword, categorySelected]);
+  const handleSearch = (value) => {
+    setKeyword(value);
+  };
 
   return (
     <View style={[styles.container, isPortrait ? styles.portraitContainer : styles.landscapeContainer]}>
       <Search
-        error={error}
-        onSearch={setKeyword}
+        onSearch={handleSearch}
         goBack={() => navigation.goBack()}
+        onChangeText={handleSearch} 
       />
-      <FlatList
-        data={productFetched} 
-        renderItem={({ item }) => (
-          <ProductItem  product={item} navigation={navigation} />
-        )}
- keyExtractor={(product) => product.id}
-      />
+      {filteredProducts.length === 0 && keyword ? (
+        <View style={styles.errorContainer}>
+          <Text>No hay productos que coincidan con: "{keyword}"</Text>
+        </View>
+      ) : (
+        <FlatList
+          data={productFetched}
+          renderItem={({ item }) => (
+            <ProductItem key={item.id} item={item} navigation={navigation} />
+          )}
+          contentContainerStyle={styles.flatListContainer}
+        />
+      )}
     </View>
   );
 };
@@ -81,10 +76,20 @@ const styles = StyleSheet.create({
     width: "100%",
     height: 1700,
     gap: 140,
-    backgroundColor: colors.light,
+    backgroundColor: "#f0f0f0",
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  errorContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    padding: 20,
+    backgroundColor: colors.lightColor
   },
 });
 
 export default ItemListCategory;
-
-
