@@ -1,26 +1,38 @@
 import React, { useState, useEffect } from "react";
-import { StyleSheet, View, FlatList, Text, useWindowDimensions } from "react-native";
+import {
+  StyleSheet,
+  View,
+  FlatList,
+  Text,
+  useWindowDimensions,
+} from "react-native";
 import { useGetProductsByCategoryQuery } from "../services/shopService";
 import ProductItem from "../components/ProductItem";
 import Search from "../components/Search";
-import { colors } from '../constants/colors';
-
+import { colors } from "../constants/colors";
 const ItemListCategory = ({ navigation, route }) => {
+ 
   const [keyword, setKeyword] = useState("");
   const { category: categorySelected } = route.params;
   const { width, height } = useWindowDimensions();
+  const [error, setError] = useState("")
   const isPortrait = height > width;
-  const { data: productFetched, isLoading, isError } = useGetProductsByCategoryQuery(categorySelected);
+  const {
+    data: productFetched,
+    isLoading,
+    isError,
+  } = useGetProductsByCategoryQuery(categorySelected);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
-    if (productFetched) {
+    if (!isLoading) {
       const filtered = productFetched.filter(
         (product) =>
           product.title.toLowerCase().includes(keyword.toLowerCase()) &&
           product.category === categorySelected
       );
       setFilteredProducts(filtered);
+      setError("")
     }
   }, [keyword, productFetched, categorySelected, isLoading, isError]);
 
@@ -29,11 +41,16 @@ const ItemListCategory = ({ navigation, route }) => {
   };
 
   return (
-    <View style={[styles.container, isPortrait ? styles.portraitContainer : styles.landscapeContainer]}>
+    <View
+      style={[
+        styles.container,
+        isPortrait ? styles.portraitContainer : styles.landscapeContainer,
+      ]}
+    >
       <Search
         onSearch={handleSearch}
         goBack={() => navigation.goBack()}
-        onChangeText={handleSearch} 
+        onChangeText={handleSearch}
       />
       {filteredProducts.length === 0 && keyword ? (
         <View style={styles.errorContainer}>
@@ -88,7 +105,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
-    backgroundColor: colors.lightColor
+    backgroundColor: colors.lightColor,
   },
 });
 

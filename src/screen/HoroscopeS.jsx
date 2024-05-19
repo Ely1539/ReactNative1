@@ -4,7 +4,6 @@ import { useNavigation } from '@react-navigation/native';
 import { colors } from '../constants/colors';
 import { Picker } from "@react-native-picker/picker";
 
-
 const Horoscope = () => {
     const navigation = useNavigation();
 

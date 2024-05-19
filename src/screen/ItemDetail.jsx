@@ -7,26 +7,21 @@ import {
   View,
   useWindowDimensions,
 } from "react-native";
-import allProducts from "../data/products.json";
 import { colors } from "../constants/colors";
 import { useSelector, useDispatch } from "react-redux";
 import { setSelectedItem } from "../features/Shop/ShopSlice"; 
+import { useGetProductByIdQuery } from "../services/shopService";
+import { addCartItem } from "../features/Cart/cart.slice";
 
 const ItemDetail = ({ route, navigation }) => {
   const dispatch = useDispatch(); 
-
-  const [product, setProduct] = useState(null);
   const [quantity, setQuantity] = useState(1);
-
   const { productId: itemSelected } = route.params;
+  const {data: product, error, isLoading}= useGetProductByIdQuery(itemSelected);
 
-  useEffect(() => {
-    const productSelected = allProducts.find(
-      (product) => product.id === itemSelected
-    );
-    setProduct(productSelected);
-    dispatch(setSelectedItem(productSelected)); 
-  }, [itemSelected, dispatch]);
+const handleAddCart = () => {
+  dispatch(addCartItem({...product, quantity}));
+};
 
   const handleQuantityChange = (newQuantity) => {
     setQuantity(newQuantity);
@@ -51,26 +46,14 @@ const ItemDetail = ({ route, navigation }) => {
             <Text style={styles.priceDetail}>
               Precio: ${product.price * quantity}
             </Text>
-            <Pressable style={styles.button}>
+            <Pressable style={styles.button} onPress = {() => handleAddCart()}>
               <Text style={styles.buttonText}>Agregar al carrito</Text>
+
             </Pressable>
           </View>
         </View>
       ) : null}
       <View style={styles.quantityContainer}>
-        <Pressable
-          onPress={() => handleQuantityChange(quantity - 1)}
-          style={styles.quantityButton}
-        >
-          <Text style={styles.more}>-</Text>
-        </Pressable>
-        <Text>{quantity}</Text>
-        <Pressable
-          onPress={() => handleQuantityChange(quantity + 1)}
-          style={styles.quantityButton}
-        >
-          <Text style={styles.more}>+</Text>
-        </Pressable>
       </View>
     </View>
   );
@@ -90,7 +73,7 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 18,
     fontWeight: "bold",
-    color: colors.lightColor,
+    color: "red",
   },
   detailContainer: {
     marginTop: "1%",
@@ -125,8 +108,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    position: "absolute",
-    bottom: 20,
+  
     width: "100%",
   },
   quantityButton: {
@@ -134,6 +116,7 @@ const styles = StyleSheet.create({
     width: 40,
     alignItems: "center",
     height: 40,
+
   },
   more: {
     fontSize: 20,

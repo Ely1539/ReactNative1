@@ -13,7 +13,7 @@ import { useGetCategoriesQuery } from "../services/shopService";
 
 export const Home = ({ navigation }) => {
   const { data: categories, error, isLoading } = useGetCategoriesQuery();
-
+console.log(categories);
   const [orientation, setOrientation] = useState("portrait");
   const { width, height } = useWindowDimensions();
 
@@ -41,7 +41,7 @@ export const Home = ({ navigation }) => {
           <Text style={styles.textCategories}>Nuestros Productos</Text>
           <FlatList
             style={styles.flatListPortrait}
-            keyExtractor={(item) => item.category}
+            keyExtractor={(elementoDeMiArray) => elementoDeMiArray}
             data={categories}
             renderItem={({ item }) => (
               <CategoryItem

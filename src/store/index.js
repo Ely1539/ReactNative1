@@ -3,11 +3,13 @@ import counterReducer from "../features/Counter/CounterSlice"
 import reductorDelShop from "../features/Shop/ShopSlice"
 import { setupListeners } from "@reduxjs/toolkit/query";
 import { shopApi } from '../services/shopService';
+import cartReducer from"../features/Cart/cart.slice";
 
 const store = configureStore({
     reducer: {
         counter: counterReducer,
         shop: reductorDelShop,
+        cart: cartReducer,
         [shopApi.reducerPath]: shopApi.reducer,
     },
     middleware: (getDefaultMiddleware) => {
