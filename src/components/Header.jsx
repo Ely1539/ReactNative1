@@ -1,7 +1,7 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import { useSelector } from "react-redux";
-
+import {colors} from "../constants/colors"
 const Header = () => {
   const headerText = useSelector((state) => state.shop.value.headerText);
 
@@ -15,27 +15,30 @@ const Header = () => {
 const styles = StyleSheet.create({
   headerContainer: {
     justifyContent: "center",
+    alignItems: "center",
     marginTop: 28,
-    marginLeft: 10,
-    width: "75%",
-    height: 30,
-    elevation: 2,
-    borderRadius: 3,
-    backgroundColor: "#fff",
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    backgroundColor: colors.cardScreens, 
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
   },
   headerText: {
-    fontSize: 16,
-    color: "black",
+    fontSize: 20,
+    fontWeight: "bold",
+    color: "#FFFFFF", // Color de texto blanco para contrastar con el fondo oscuro
     textAlign: "center",
-    fontFamily: "Josefin",
+    fontFamily: "Roboto", // Puedes ajustar la fuente según tus preferencias
   },
 });
 
 export default Header;
-
-
-
-
 
 
 

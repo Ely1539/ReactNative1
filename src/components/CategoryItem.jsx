@@ -1,4 +1,3 @@
-// En tu componente CategoryItem
 import React from "react";
 import { StyleSheet, Text, Pressable, Image } from "react-native";
 import { useDispatch } from "react-redux";
@@ -10,15 +9,13 @@ const CategoryItem = ({ category, image, navigation }) => {
   const dispatch = useDispatch();
 
   const handleNavigate = () => {
-
     dispatch(setSelectedCategory(category));
-
     navigation.navigate("ItemListCategory", { category });
   };
 
   return (
     <Card style={styles.categoryContainer}>
-      <Pressable onPress={handleNavigate}>
+      <Pressable onPress={handleNavigate} style={styles.pressable}>
         <Image source={{ uri: image }} style={styles.image} />
         <Text style={styles.itemText}>{category}</Text>
       </Pressable>
@@ -30,27 +27,39 @@ export default CategoryItem;
 
 const styles = StyleSheet.create({
   categoryContainer: {
-    borderRadius: 1,
-    width: 450,
-    height: 300,
-    marginTop: 18,
-
+    borderRadius: 10,
+    marginVertical: 10,
+    marginHorizontal: 10,
+    overflow: 'hidden',
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    backgroundColor: '#fff',
+  },
+  pressable: {
+    flex: 1,
+    alignItems: 'center',
   },
   image: {
-    width: 500,
+    width: 360,
     height: 250,
-
-    marginTop: 6,
-  
+    borderTopLeftRadius: 10,
+    borderTopRightRadius: 10,
+    resizeMode: 'cover',
   },
   itemText: {
-    color: colors.lightColor,
+    color: colors.primary,
     textAlign: "center",
-    fontSize: 17,
-    fontFamily: "Josefine",
-    marginTop: 18,
-  
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginVertical: 10,
   },
 });
+
 
 

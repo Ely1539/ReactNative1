@@ -1,27 +1,16 @@
 import React, { useState, useEffect } from "react";
-import {
-  StyleSheet,
-  View,
-  FlatList,
-  Text,
-  useWindowDimensions,
-} from "react-native";
+import { StyleSheet, View, FlatList, Text, useWindowDimensions } from "react-native";
 import { useGetProductsByCategoryQuery } from "../services/shopService";
 import ProductItem from "../components/ProductItem";
 import Search from "../components/Search";
 import { colors } from "../constants/colors";
+
 const ItemListCategory = ({ navigation, route }) => {
- 
   const [keyword, setKeyword] = useState("");
   const { category: categorySelected } = route.params;
   const { width, height } = useWindowDimensions();
-  const [error, setError] = useState("")
   const isPortrait = height > width;
-  const {
-    data: productFetched,
-    isLoading,
-    isError,
-  } = useGetProductsByCategoryQuery(categorySelected);
+  const { data: productFetched, isLoading, isError } = useGetProductsByCategoryQuery(categorySelected);
   const [filteredProducts, setFilteredProducts] = useState([]);
 
   useEffect(() => {
@@ -32,7 +21,6 @@ const ItemListCategory = ({ navigation, route }) => {
           product.category === categorySelected
       );
       setFilteredProducts(filtered);
-      setError("")
     }
   }, [keyword, productFetched, categorySelected, isLoading, isError]);
 
@@ -41,12 +29,7 @@ const ItemListCategory = ({ navigation, route }) => {
   };
 
   return (
-    <View
-      style={[
-        styles.container,
-        isPortrait ? styles.portraitContainer : styles.landscapeContainer,
-      ]}
-    >
+    <View style={[styles.container, isPortrait ? styles.portraitContainer : styles.landscapeContainer]}>
       <Search
         onSearch={handleSearch}
         goBack={() => navigation.goBack()}
@@ -54,11 +37,11 @@ const ItemListCategory = ({ navigation, route }) => {
       />
       {filteredProducts.length === 0 && keyword ? (
         <View style={styles.errorContainer}>
-          <Text>No hay productos que coincidan con: "{keyword}"</Text>
+          <Text style={styles.errorText}>No hay productos que coincidan con: "{keyword}"</Text>
         </View>
       ) : (
         <FlatList
-          data={productFetched}
+          data={filteredProducts}
           renderItem={({ item }) => (
             <ProductItem key={item.id} item={item} navigation={navigation} />
           )}
@@ -72,41 +55,30 @@ const ItemListCategory = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    marginTop: 1,
-    height: 550,
-    width: "100%",
-    backgroundColor: "#fff",
-    alignItems: "center",
-    justifyContent: "center",
+    backgroundColor: colors.cardScreens,
   },
   portraitContainer: {
-    alignItems: "center",
+    paddingHorizontal: 10,
   },
   landscapeContainer: {
     flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    width: "95%",
-    backgroundColor: "red",
+    paddingHorizontal: 10,
   },
   flatListContainer: {
-    width: "100%",
-    height: 1700,
-    gap: 140,
-    backgroundColor: "#f0f0f0",
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
+    paddingVertical: 10,
   },
   errorContainer: {
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    padding: 20,
-    backgroundColor: colors.lightColor,
+
+  },
+  errorText: {
+    fontSize: 16,
+    color: colors.lightColor,
+    textAlign: "center",
   },
 });
 
 export default ItemListCategory;
+

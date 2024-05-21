@@ -1,28 +1,37 @@
 import { useState } from "react";
 import { StyleSheet, View, TextInput, Text } from "react-native";
 import { MaterialIcons, Feather } from "@expo/vector-icons";
-
 import { colors } from "../constants/colors";
-
 const Search = ({ onSearch = () => {}, error = "", goBack = () => {} }) => {
   const [keyword, setKeyword] = useState("");
 
   const handleChangeText = (text) => {
     setKeyword(text);
-    onSearch(text); 
+    onSearch(text);
   };
 
   return (
     <View>
       <View style={styles.iconContainer}>
-        <MaterialIcons name="phonelink-erase" size={30} color="red" onPress={() => setKeyword("")} />
-        <Feather name="skip-back" size={30} color="red" onPress={goBack} />
+        <MaterialIcons
+          name="phonelink-erase"
+          size={30}
+          color="red"
+          onPress={() => setKeyword("")}
+          style={styles.eraseIcon}
+        />
+        <Feather
+          name="skip-back"
+          size={30}
+          color={colors.lightColor}
+          onPress={goBack}
+        />
       </View>
       <TextInput
         style={styles.input}
         placeholder="Ingresa tu búsqueda aquí..."
         value={keyword}
-        onChangeText={handleChangeText} // Manejador para actualizar el texto y realizar la búsqueda
+        onChangeText={handleChangeText}
       />
 
       {error ? <Text style={styles.errorStyle}> {error}</Text> : null}
@@ -37,21 +46,30 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 10,
     paddingHorizontal: 4,
-    backgroundColor: "white",
+    backgroundColor: colors.lightColor,
     marginTop: 12,
     marginLeft: 1,
     marginBottom: 10,
   },
   iconContainer: {
     flexDirection: "row",
-    justifyContent: "space-around",
-    marginLeft: 150,
+    justifyContent: "flex-end",
+    alignItems: "center",
+    marginRight: 10,
     marginTop: 5,
-    width: "70%",
-    backgroundColor: colors.cardColor,
+    width: "90%",
+    backgroundColor: colors.cardScreens,
+    borderRadius: 10,
+    paddingHorizontal: 10,
+    paddingVertical: 25,
   },
+
+  eraseIcon: {
+    marginRight: 15,
+  },
+
   errorStyle: {
-    backgroundColor: "tomato",
+    backgroundColor: colors.lightColor,
     marginTop: 10,
     paddingVertical: 5,
     paddingHorizontal: 10,

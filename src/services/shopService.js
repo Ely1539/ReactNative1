@@ -1,6 +1,9 @@
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
 import { baseUrl } from "../databases/realtimeDatabase";
+
+
 export const shopApi = createApi({
+    reducerPath: 'shopApi',
     baseQuery: fetchBaseQuery({ baseUrl: baseUrl }),
     endpoints: (builder) => ({
         getCategories: builder.query({
@@ -18,11 +21,21 @@ export const shopApi = createApi({
             transformResponse: (response) => {
                 const responseTransformed = Object.values(response)
                 if (responseTransformed.length) return responseTransformed[0]
-                return null
-            
+                return null 
             },
+        }),
+        postOrder: builder.mutation({
+            query: (...order) => ({
+                url: `orders.json`,
+                method: 'POST',
+                body: order
+            })
         }),
     })
 });
 
-export const { useGetCategoriesQuery, useGetProductsByCategoryQuery, useGetProductByIdQuery } = shopApi;
+export const { useGetCategoriesQuery,
+                 useGetProductsByCategoryQuery, 
+                 useGetProductByIdQuery, 
+                 usePostOrderMutation } 
+                 = shopApi;

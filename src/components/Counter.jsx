@@ -2,13 +2,7 @@ import { Pressable, StyleSheet, Text, TextInput, View } from "react-native";
 import React, { useState } from "react";
 import { colors } from "../constants/colors";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  decrement,
-  increment,
-  incrementByAmount,
-  reset,
-} 
- from "../features/Counter/counterSlice";
+
 
 const Counter = () => {
   const count = useSelector((state) => state.counter.value);
