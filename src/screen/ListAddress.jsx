@@ -1,45 +1,37 @@
-import { StyleSheet, Text, View } from "react-native"
-import React from "react"
-import { useSelector } from "react-redux"
-import AddButton from "../components/AddButton"
-import { useGetLocationQuery } from "../services/shopService"
-import AddressItem from "../components/AdressItem"
-
+import { StyleSheet, Text, View } from "react-native";
+import React from "react";
+import { useSelector } from "react-redux";
+import AddButton from "../components/AddButton";
+import { useGetLocationQuery } from "../services/shopService";
+import AddressItem from "../components/AdressItem";
 
 const ListAddress = ({ navigation }) => {
-    const { localId } = useSelector((state) => state.auth.value)
-    const { data: location, isLoading, error } = useGetLocationQuery(localId)
+  const { localId } = useSelector((state) => state.auth.value);
+  const { data: location, isLoading, error } = useGetLocationQuery(localId);
 
-    console.log(location);
+  return location ? (
+    <AddressItem location={location} navigation={navigation} />
+  ) : (
+    <View style={styles.container}>
+      <Text style={styles.text}>Sin Direccion</Text>
+      <AddButton
+        title="Selecciona Tu Direccion"
+        onPress={() => navigation.navigate("Location Selector")}
+      />
+    </View>
+  );
+};
 
-    return location ? (
-        <AddressItem
-            location={location}
-            navigation={navigation}
-        />
-    ) : (
-        <View style={styles.container}>
-            <Text style={styles.text}>Sin Direccion</Text>
-            <AddButton
-                title="Selecciona Tu Direccion"
-                onPress={() => navigation.navigate("Location Selector")}
-            />
-        </View>
-    )
-}
-
-export default ListAddress
+export default ListAddress;
 
 const styles = StyleSheet.create({
-    container: {
-        justifyContent: "flex-start",
-        alignItems: "center",
-        
-    },
-    text: {
-        paddingVertical: 20,
-        fontFamily: "Josefin",
-        fontSize: 18,
-        
-    },
-})
+  container: {
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  text: {
+    paddingVertical: 20,
+    fontFamily: "Josefin",
+    fontSize: 18,
+  },
+});

@@ -1,4 +1,3 @@
-// components/InputForm.jsx
 import React from 'react';
 import { StyleSheet, TextInput, View, Text } from 'react-native';
 import { colors } from '../constants/colors';

@@ -6,8 +6,8 @@ import Card from "./Card";
 import { colors } from "../constants/colors";
 
 const CategoryItem = ({ category, image, navigation }) => {
+  
   const dispatch = useDispatch();
-
   const handleNavigate = () => {
     dispatch(setSelectedCategory(category));
     navigation.navigate("ItemListCategory", { category });
@@ -30,7 +30,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginVertical: 10,
     marginHorizontal: 10,
-    overflow: 'hidden',
+    overflow: "hidden",
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
@@ -39,27 +39,24 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    backgroundColor: '#fff',
+    backgroundColor: "#fff",
   },
   pressable: {
     flex: 1,
-    alignItems: 'center',
+    alignItems: "center",
   },
   image: {
     width: 360,
     height: 250,
     borderTopLeftRadius: 10,
     borderTopRightRadius: 10,
-    resizeMode: 'cover',
+    resizeMode: "cover",
   },
   itemText: {
-    color: colors.primary,
+    color: colors.lightColor,
     textAlign: "center",
     fontSize: 20,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginVertical: 10,
   },
 });
-
-
-

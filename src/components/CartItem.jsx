@@ -1,26 +1,28 @@
 import React, { useState } from "react";
 import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import { colors } from "../constants/colors";
-import { Entypo } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
-import { removeCartItem } from "../features/Cart/cart.slice"; 
+import { removeCartItem } from "../features/Cart/cart.slice";
 
 const CartItem = ({ cartItem }) => {
   const [quantity, setQuantity] = useState(cartItem.quantity);
   const dispatch = useDispatch();
-
   const handleRemoveItem = () => {
-    dispatch(removeCartItem(cartItem)); 
+    dispatch(removeCartItem(cartItem));
   };
-  
 
   return (
     <View style={styles.card}>
       <Image source={{ uri: cartItem.images[0] }} style={styles.image} />
       <View style={styles.textContainer}>
-        <Text style={styles.text}>{cartItem.title} ({cartItem.quantity}) </Text>
+        <Text style={styles.text}>
+          {cartItem.title} ({cartItem.quantity}){" "}
+        </Text>
         <Text style={styles.price}>Total: ${cartItem.price * quantity}</Text>
-        <TouchableOpacity onPress={handleRemoveItem} style={styles.removeButton}>
+        <TouchableOpacity
+          onPress={handleRemoveItem}
+          style={styles.removeButton}
+        >
           <Text style={styles.removeButtonText}>Eliminar</Text>
         </TouchableOpacity>
       </View>

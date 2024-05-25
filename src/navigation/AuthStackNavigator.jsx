@@ -1,8 +1,5 @@
 import { StyleSheet } from "react-native"
 import React from "react"
-import Home from "../screen/Home"
-import ItemListCategory from "../screen/ItemListCategory"
-import ItemDetail from "../screen/ItemDetail"
 import { createNativeStackNavigator } from "@react-navigation/native-stack"
 import LoginScreen from "../screen/loginScreen"
 import SignupScreen from "../screen/signUpScreen"

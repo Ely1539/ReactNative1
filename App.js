@@ -6,11 +6,11 @@ import Navigator from "./src/navigation/navigator";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
 import store from "./src/store";
-import {initSQLiteDB } from "./src/persistence";
+import { dropSessionsTable, initSQLiteDB, truncateSessionsTable } from "./src/persistence"
 
 (async ()=> {
   try {
-      const response = await initSQLiteDB()
+      const response = await initSQLiteDB();  
     
   } catch (error) {
 

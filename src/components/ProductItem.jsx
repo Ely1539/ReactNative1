@@ -6,16 +6,13 @@ import { colors } from "../constants/colors";
 const ProductItem = ({ item, setProductSelected = () => {}, navigation }) => {
   return (
     <Card style={styles.cardDetailStyle}>
-  
       <Pressable
-      
         style={styles.pressable}
         onPress={() =>
           navigation.navigate("ItemDetail", {
             productId: item.id,
             productName: item.title,
           })
-          
         }
       >
         <Image
@@ -26,7 +23,6 @@ const ProductItem = ({ item, setProductSelected = () => {}, navigation }) => {
         <Text style={styles.textCategory}>{item.title}</Text>
       </Pressable>
     </Card>
-    
   );
 };
 
@@ -67,4 +63,3 @@ const styles = StyleSheet.create({
 });
 
 export default ProductItem;
-

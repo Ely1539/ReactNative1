@@ -32,9 +32,9 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 20,
     fontWeight: "bold",
-    color: "#FFFFFF", // Color de texto blanco para contrastar con el fondo oscuro
+    color: "#FFFFFF", 
     textAlign: "center",
-    fontFamily: "Roboto", // Puedes ajustar la fuente según tus preferencias
+    fontFamily: "JosefinSans-SemiBold", 
   },
 });
 

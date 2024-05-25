@@ -1,10 +1,18 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, FlatList, Pressable, Modal, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  FlatList,
+  Pressable,
+  Modal,
+  TouchableOpacity,
+} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { colors } from "../constants/colors";
 import { usePostOrderMutation } from "../services/shopService";
 import CartItem from "../components/CartItem";
-import { removeCartItem } from "../features/Cart/cart.slice"; // Importa la acción removeCartItem
+import { removeCartItem } from "../features/Cart/cart.slice";
 
 const Cart = ({ navigation }) => {
   const { items: CartData, total } = useSelector((state) => state.cart.value);
@@ -12,6 +20,7 @@ const Cart = ({ navigation }) => {
   const dispatch = useDispatch();
   const [modalVisible, setModalVisible] = useState(false);
   const [emptyCartModalVisible, setEmptyCartModalVisible] = useState(false);
+  const { localId } = useSelector((state) => state.auth.value);
 
   const onConfirmOrder = () => {
     if (CartData.length === 0) {
@@ -19,7 +28,7 @@ const Cart = ({ navigation }) => {
       return;
     }
 
-    triggerPostOrder({ items: CartData, user: 'Rafael', total });
+    triggerPostOrder({ items: CartData, user: localId, total });
 
     CartData.forEach((cartItem) => {
       dispatch(removeCartItem(cartItem));
@@ -30,12 +39,12 @@ const Cart = ({ navigation }) => {
 
   const closeModal = () => {
     setModalVisible(false);
-    navigation.navigate('Home');
+    navigation.navigate("Home");
   };
 
   const closeEmptyCartModal = () => {
     setEmptyCartModalVisible(false);
-    navigation.navigate('Home');
+    navigation.navigate("Home");
   };
 
   return (
@@ -43,9 +52,7 @@ const Cart = ({ navigation }) => {
       <FlatList
         data={CartData}
         keyExtractor={(cart) => cart.id}
-        renderItem={({ item }) => (
-          <CartItem cartItem={item} />
-        )}
+        renderItem={({ item }) => <CartItem cartItem={item} />}
         contentContainerStyle={styles.flatListContent}
       />
       <View style={styles.totalContainer}>
@@ -81,7 +88,10 @@ const Cart = ({ navigation }) => {
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
             <Text style={styles.modalText}>El carrito está vacío</Text>
-            <TouchableOpacity style={styles.closeButton} onPress={closeEmptyCartModal}>
+            <TouchableOpacity
+              style={styles.closeButton}
+              onPress={closeEmptyCartModal}
+            >
               <Text style={styles.closeButtonText}>OK</Text>
             </TouchableOpacity>
           </View>
@@ -142,7 +152,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
   },
   modalView: {
     backgroundColor: "white",
@@ -152,17 +162,17 @@ const styles = StyleSheet.create({
     shadowColor: "#000",
     shadowOffset: {
       width: 0,
-      height: 2
+      height: 2,
     },
     shadowOpacity: 0.25,
     shadowRadius: 4,
-    elevation: 5
+    elevation: 5,
   },
   modalText: {
     marginBottom: 15,
     textAlign: "center",
     fontSize: 20,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
   closeButton: {
     backgroundColor: colors.primary,

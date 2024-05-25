@@ -13,7 +13,6 @@ import { useGetCategoriesQuery } from "../services/shopService";
 
 export const Home = ({ navigation }) => {
   const { data: categories, error, isLoading } = useGetCategoriesQuery();
-console.log(categories);
   const [orientation, setOrientation] = useState("portrait");
   const { width, height } = useWindowDimensions();
 
@@ -34,7 +33,7 @@ console.log(categories);
               <Text style={styles.buttonText}>Obtene tu Horóscopo de Hoy</Text>
             </Pressable>
           </View>
-         < ImageBackground
+          <ImageBackground
             source={require("../../assets/toques.webp")}
             style={styles.backgroundImage}
           />
@@ -108,7 +107,7 @@ const styles = StyleSheet.create({
   backgroundImage: {
     width: "100%",
     height: 200,
-   marginRight: 420,
+    marginRight: 420,
   },
   imageLandscape: {
     width: "50%",

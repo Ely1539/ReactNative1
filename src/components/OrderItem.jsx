@@ -1,28 +1,31 @@
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 import React from "react";
+import { useNavigation } from "@react-navigation/native";
 import { colors } from "../constants/colors";
 import { Feather } from "@expo/vector-icons";
 
-const OrderItem = ({ orderItem }) => {
-  const total = orderItem.items.reduce(
+const OrderItem = ({ order }) => {  
+  const navigation = useNavigation();
+
+  const total = order.items.reduce(
     (acc, currentItem) => (acc += currentItem.price * currentItem.quantity),
     0
   );
 
+  const handlePress = () => {
+    navigation.navigate("OrderDetailScreen", { order: order });
+  };
+
   return (
-    
-    <View style={styles.card}>
+    <TouchableOpacity style={styles.card} onPress={handlePress}> 
       <View style={styles.textContainer}>
         <Text style={styles.text}>
-          {new Date(orderItem.createdAt).toLocaleString()}
-     
+          {new Date(order?.createdAt || null ).toLocaleString()}
         </Text>
         <Text style={styles.text2}>${total}</Text>
       </View>
-     
       <Feather name="search" size={30} color="red" />
-    </View>
-
+    </TouchableOpacity>
   );
 };
 
@@ -55,7 +58,6 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: colors.lightColor,
   },
-  
 });
 
 export default OrderItem;

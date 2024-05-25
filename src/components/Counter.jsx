@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { colors } from "../constants/colors";
 import { useDispatch, useSelector } from "react-redux";
 
-
 const Counter = () => {
   const count = useSelector((state) => state.counter.value);
   const dispatch = useDispatch();
@@ -60,23 +59,23 @@ const styles = StyleSheet.create({
   },
   button: {
     padding: 10,
-    backgroundColor: colors.platinum,
+    backgroundColor: colors.cardScreens,
   },
   span: {
-    backgroundColor: colors.teal900,
+    backgroundColor: colors.lightColor,
     width: "60%",
     padding: 10,
     textAlign: "center",
     fontSize: 20,
-    color: colors.platinum,
+    color: colors.lightColor,
   },
   spanInput: {
-    backgroundColor: colors.teal900,
+    backgroundColor: colors.lightColor,
     width: "60%",
     padding: 10,
     textAlign: "center",
     fontSize: 16,
-    color: colors.platinum,
+    color: colors.cardScreens,
   },
   buttonText: {
     fontSize: 18,

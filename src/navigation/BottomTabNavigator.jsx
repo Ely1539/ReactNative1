@@ -8,9 +8,8 @@ import OrderStack from "./OrderStackNavigator";
 import Header from "../components/Header";
 import { FontAwesome5, FontAwesome6 } from "@expo/vector-icons";
 import { Ionicons } from "@expo/vector-icons";
-import CartTemp from "../screen/CartTemp";
-import OrderStackNavigator from "./OrderStackNavigator";
 import MyProfileStackNavigator from "./MyProfileStackNavigator";
+
 const Tab = createBottomTabNavigator();
 
 const BottomTabNavigator = () => {
@@ -57,7 +56,6 @@ const BottomTabNavigator = () => {
             );
           },
         }}
-        
       />
       <Tab.Screen
         name="Mis Ordenes"
@@ -74,22 +72,25 @@ const BottomTabNavigator = () => {
               </View>
             );
           },
-          
         }}
       />
-       <Tab.Screen 
-                name="Mi Perfil"
-                component={MyProfileStackNavigator}
-                options={{
-                    tabBarIcon: ({ focused }) => {
-                        return (
-                            <View>
-                                <Ionicons name="person-circle" size={24} color={ focused ? 'red' : colors.lightColor}  />
-                            </View>
-                        )
-                    },
-                }}
-            />
+      <Tab.Screen
+        name="Mi Perfil"
+        component={MyProfileStackNavigator}
+        options={{
+          tabBarIcon: ({ focused }) => {
+            return (
+              <View>
+                <Ionicons
+                  name="person-circle"
+                  size={24}
+                  color={focused ? "red" : colors.lightColor}
+                />
+              </View>
+            );
+          },
+        }}
+      />
     </Tab.Navigator>
   );
 };
@@ -99,8 +100,6 @@ export default BottomTabNavigator;
 const styles = StyleSheet.create({
   tabBar: {
     backgroundColor: colors.cardScreens,
-
     height: 48,
-   
   },
 });
