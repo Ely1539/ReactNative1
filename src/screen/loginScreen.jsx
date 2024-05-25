@@ -4,6 +4,7 @@ import {
   Text,
   View,
   ImageBackground,
+  Platform,
 } from "react-native";
 import React, { useState, useEffect } from "react";
 import { colors } from "../constants/colors";
@@ -14,20 +15,25 @@ import { setUser } from "../features/User/userSlice";
 import { useDispatch } from "react-redux";
 import { insertSession } from "../persistence";
 
+
 const LoginScreen = ({ navigation }) => {
   const dispatch = useDispatch();
   const [triggerSignIn, result] = useSignInMutation();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
 
+
   useEffect(() => {
     if (result?.data && result.isSuccess) {
-      insertSession({
-        email: result.data.email,
-        localId: result.data.localId,
-        token: result.data.idToken,
-      })
-        .then((response) => {
+      (async () => {
+        try {
+          if (Platform.OS !== 'web') {
+            await insertSession({
+              email: result.data.email,
+              localId: result.data.localId,
+              token: result.data.idToken,
+            });
+          }
           dispatch(
             setUser({
               email: result.data.email,
@@ -35,8 +41,10 @@ const LoginScreen = ({ navigation }) => {
               localId: result.data.localId,
             })
           );
-        })
-        .catch((err) => {});
+        } catch (error) {
+          console.log(error);
+        }
+      })();
     }
   }, [result]);
 

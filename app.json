@@ -3,7 +3,6 @@
     "name": "ProyectoReactNative",
     "slug": "ProyectoReactNative",
     "version": "1.0.0",
-
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "splash": {
@@ -11,7 +10,9 @@
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "assetBundlePatterns": ["**/*"],
+    "assetBundlePatterns": [
+      "**/*"
+    ],
     "ios": {
       "supportsTablet": true
     },
@@ -25,6 +26,13 @@
     "web": {
       "favicon": "./assets/favicon.png"
     },
-    "plugins": ["expo-font"]
+    "plugins": [
+      "expo-font"
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "fac41186-079d-465f-aa7e-41bf7a810610"
+      }
+    }
   }
 }

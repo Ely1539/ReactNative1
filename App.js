@@ -6,16 +6,19 @@ import Navigator from "./src/navigation/navigator";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import { Provider } from "react-redux";
 import store from "./src/store";
-import { dropSessionsTable, initSQLiteDB, truncateSessionsTable } from "./src/persistence"
+import {
+  dropSessionsTable,
+  initSQLiteDB,
+  truncateSessionsTable,
+} from "./src/persistence";
 
-(async ()=> {
+(async () => {
   try {
-      const response = await initSQLiteDB();  
-    
-  } catch (error) {
-
-  }
-})()
+    if (Platform.OS !== "web") {
+      const response = await initSQLiteDB();
+    }
+  } catch (error) {}
+})();
 
 const App = () => {
   const [fontsLoaded, fontError] = useFonts({
