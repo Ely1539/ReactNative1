@@ -34,7 +34,7 @@ console.log(categories);
               <Text style={styles.buttonText}>Obtene tu Horóscopo de Hoy</Text>
             </Pressable>
           </View>
-          <ImageBackground
+         < ImageBackground
             source={require("../../assets/toques.webp")}
             style={styles.backgroundImage}
           />
@@ -108,7 +108,7 @@ const styles = StyleSheet.create({
   backgroundImage: {
     width: "100%",
     height: 200,
-    resizeMode: "cover",
+   marginRight: 420,
   },
   imageLandscape: {
     width: "50%",

@@ -18,9 +18,7 @@ const ProductItem = ({ item, setProductSelected = () => {}, navigation }) => {
           
         }
       >
-        <Text> aquiiiiiiiiiiiiiiiiiii</Text>
         <Image
-        
           resizeMode="cover"
           style={styles.image}
           source={{ uri: item.images[0] }}

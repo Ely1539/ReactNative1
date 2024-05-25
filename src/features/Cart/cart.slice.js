@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit"
+import { createSlice } from "@reduxjs/toolkit";
 
 export const cartSlice = createSlice({
     name: "cart",
@@ -12,48 +12,44 @@ export const cartSlice = createSlice({
     },
     reducers: {
         addCartItem: (state, { payload }) => {
-         
-            const productRepeated = state.value.items.find(
-                (item) => item.id === payload.id
-            )
+            const productRepeated = state.value.items.find((item) => item.id === payload.id);
             if (productRepeated) {
                 const itemsUpdated = state.value.items.map((item) => {
                     if (item.id === payload.id) {
-                        item.quantity += payload.quantity
-                        return item
+                        item.quantity += payload.quantity;
+                        return item;
                     }
-                    return item
-                })
-                const total = itemsUpdated.reduce(
-                    (acc, currentItem) =>
-                        (acc += currentItem.price * currentItem.quantity),
-                    0
-                )
+                    return item;
+                });
+                const total = itemsUpdated.reduce((acc, currentItem) => (acc += currentItem.price * currentItem.quantity), 0);
                 state.value = {
                     ...state.value,
                     items: itemsUpdated,
                     total,
                     updatedAt: new Date().toLocaleString(),
-                }
+                };
             } else {
-                state.value.items.push(payload)
-                const total = state.value.items.reduce(
-                    (acc, currentItem) =>
-                        (acc += currentItem.price * currentItem.quantity),
-                    0
-                )
+                state.value.items.push(payload);
+                const total = state.value.items.reduce((acc, currentItem) => (acc += currentItem.price * currentItem.quantity), 0);
                 state.value = {
                     ...state.value,
                     total,
                     updatedAt: new Date().toLocaleString(),
-                }
+                };
             }
         },
         removeCartItem: (state, { payload }) => {
-          
+            const itemsUpdated = state.value.items.filter((item) => item.id !== payload.id);
+            const total = itemsUpdated.reduce((acc, currentItem) => (acc += currentItem.price * currentItem.quantity), 0);
+            state.value = {
+                ...state.value,
+                items: itemsUpdated,
+                total,
+                updatedAt: new Date().toLocaleString(),
+            };
         },
     },
-})
+});
 
-export const { addCartItem, removeCartItem } = cartSlice.actions
-export default cartSlice.reducer
+export const { addCartItem, removeCartItem } = cartSlice.actions;
+export default cartSlice.reducer;

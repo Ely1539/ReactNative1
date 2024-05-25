@@ -24,7 +24,6 @@ const styles = StyleSheet.create({
     },
     text: {
         color: colors.lightColor,
-        fontFamily: 'PlayFair',
         fontSize: 22
     },
 });

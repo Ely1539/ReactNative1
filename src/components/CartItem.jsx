@@ -3,39 +3,26 @@ import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
 import { colors } from "../constants/colors";
 import { Entypo } from "@expo/vector-icons";
 import { useDispatch } from "react-redux";
-import { decrement, increment } from "../features/counter/counterSlice";
+import { removeCartItem } from "../features/Cart/cart.slice"; 
 
 const CartItem = ({ cartItem }) => {
   const [quantity, setQuantity] = useState(cartItem.quantity);
   const dispatch = useDispatch();
 
-  const increaseQuantity = () => {
-    setQuantity((prevQuantity) => prevQuantity + 1);
-    dispatch(increment()); // Dispatches the increment action
+  const handleRemoveItem = () => {
+    dispatch(removeCartItem(cartItem)); 
   };
-
-  const decreaseQuantity = () => {
-    if (quantity > 1) {
-      setQuantity((prevQuantity) => prevQuantity - 1);
-      dispatch(decrement()); // Dispatches the decrement action
-    }
-  };
+  
 
   return (
     <View style={styles.card}>
       <Image source={{ uri: cartItem.images[0] }} style={styles.image} />
       <View style={styles.textContainer}>
-        <Text style={styles.text}>{cartItem.title}</Text>
-        <View style={styles.quantityContainer}>
-          <TouchableOpacity onPress={decreaseQuantity} style={styles.quantityButton}>
-            <Entypo name="minus" size={20} color="white" />
-          </TouchableOpacity>
-          <Text style={styles.quantity}>{quantity}</Text>
-          <TouchableOpacity onPress={increaseQuantity} style={styles.quantityButton}>
-            <Entypo name="plus" size={20} color="white" />
-          </TouchableOpacity>
-        </View>
+        <Text style={styles.text}>{cartItem.title} ({cartItem.quantity}) </Text>
         <Text style={styles.price}>Total: ${cartItem.price * quantity}</Text>
+        <TouchableOpacity onPress={handleRemoveItem} style={styles.removeButton}>
+          <Text style={styles.removeButtonText}>Eliminar</Text>
+        </TouchableOpacity>
       </View>
     </View>
   );
@@ -72,29 +59,29 @@ const styles = StyleSheet.create({
     color: colors.lightColor,
     marginBottom: 10,
   },
-  quantityContainer: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 10,
-    
-  },
-  quantityButton: {
-    backgroundColor: colors.primary,
-    borderRadius: 10,
-    padding: 5,
-    marginHorizontal: 10,
-  },
-  quantity: {
-    fontFamily: "JosefinSans-Regular",
-    fontSize: 18,
-    color: colors.lightColor,
-  },
   price: {
     fontFamily: "JosefinSans-SemiBold",
     fontSize: 16,
     color: colors.accent,
   },
+  removeButton: {
+    backgroundColor: colors.lightColor,
+    borderRadius: 10,
+    padding: 5,
+    marginTop: 15,
+    alignSelf: "flex-start",
+    width: 90,
+    alignContent: "center",
+    textAlign: "center",
+    marginLeft: 90,
+  },
+  removeButtonText: {
+    fontFamily: "JosefinSans-Regular",
+    fontSize: 18,
+    color: colors.cardScreens,
+    alignContent: "center",
+    textAlign: "center",
+  },
 });
 
 export default CartItem;
-

@@ -31,11 +31,14 @@ const Navigator = () => {
   }, [])
   return (
     <NavigationContainer>
-      {user ? <BottomTabNavigator /> : <AuthStackNavigator />}
+        {user ? <BottomTabNavigator/> : <AuthStackNavigator/>}
     </NavigationContainer>
   )
 }
 
+
 export default Navigator
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({})   
+
+

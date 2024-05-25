@@ -4,6 +4,7 @@ import { useGetOrdersQuery } from '../services/shopService';
 import { useSelector } from 'react-redux';
 import OrderItem from '../components/OrderItem';
 import { colors } from '../constants/colors';
+import OrderData from '../data/orders.json'
 
 const OrderScreen = () => {
     const { localId } = useSelector(state => state.auth.value);

@@ -1,17 +1,37 @@
-import React, { useState } from 'react';
+// En la pantalla Horoscope
+
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, Text, Button, Alert, ImageBackground, Pressable } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
+import { useSelector, useDispatch } from 'react-redux';
 import { colors } from '../constants/colors';
 import { Picker } from "@react-native-picker/picker";
+import { getSession } from '../persistence';
+import { setUser, clearUser } from '../features/User/userSlice';
 
 const Horoscope = () => {
     const navigation = useNavigation();
+    const dispatch = useDispatch();
+    const user = useSelector(state => state.auth.value.user);
+    const isAuthenticated = user !== null; 
 
     const [selectedSign, setSelectedSign] = useState('');
     const [horoscope, setHoroscope] = useState('');
 
+    useEffect(() => {
+        if (!isAuthenticated) {
+            navigation.navigate('Login'); // Redirige a la pantalla de inicio de sesión si el usuario no está autenticado
+        }
+    }, [isAuthenticated, navigation]);
+
     const fetchHoroscope = async () => {
         try {
+            if (!isAuthenticated) {
+                Alert.alert('Error', 'Debe iniciar sesión para obtener su horóscopo.');
+                navigation.navigate('Login');
+                return;
+            }
+
             if (!selectedSign) {
                 Alert.alert('Error', 'Por favor seleccione un signo zodiacal.');
                 return;
@@ -47,7 +67,7 @@ const Horoscope = () => {
             ></ImageBackground>
             <Picker
                 selectedValue={selectedSign}
-                onValueChange={(itemValue ) =>
+                onValueChange={(itemValue) =>
                     setSelectedSign(itemValue)
                 }
                 style={styles.input}
@@ -55,16 +75,16 @@ const Horoscope = () => {
                 <Picker.Item label="Seleccione un signo zodiacal" value="" />
                 <Picker.Item label="Aries" value="aries" />
                 <Picker.Item label="Tauro" value="taurus" />
-                <Picker.Item label="Geminis" value="gemini" />
-                <Picker.Item label="Cancer" value="cancer" />
+                <Picker.Item label="Géminis" value="gemini" />
+                <Picker.Item label="Cáncer" value="cancer" />
                 <Picker.Item label="Leo" value="leo" />
                 <Picker.Item label="Virgo" value="virgo" />
                 <Picker.Item label="Libra" value="libra" />
-                <Picker.Item label="sagitario" value="sagittarius" />
-                <Picker.Item label="Capriconio" value="capricorn" />
+                <Picker.Item label="Escorpio" value="scorpio" />
+                <Picker.Item label="Sagitario" value="sagittarius" />
+                <Picker.Item label="Capricornio" value="capricorn" />
                 <Picker.Item label="Acuario" value="aquarius" />
                 <Picker.Item label="Piscis" value="pisces" />
-              
             </Picker>
             <Button
                 title="Obtener Horóscopo"
@@ -98,7 +118,6 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         paddingHorizontal: 10,
     },
-    
     horoscopeText: {
         fontSize: 14, 
         color: colors.lightColor,
@@ -113,7 +132,6 @@ const styles = StyleSheet.create({
         height: "80%",
         width: "100%",
     },
-
     buttonHoroscope: {
         backgroundColor: colors.cardScreens,
         paddingHorizontal: 10,
@@ -129,5 +147,4 @@ const styles = StyleSheet.create({
 });
 
 export default Horoscope;
-
 

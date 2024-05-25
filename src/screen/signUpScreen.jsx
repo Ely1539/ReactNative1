@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
-import { ImageBackground, Pressable, StyleSheet, Text, View, Platform } from 'react-native';
+import { ImageBackground, Pressable, StyleSheet, Text, View, Platform, KeyboardAvoidingView,
+     ScrollView, Modal, Button } from 'react-native';
 import { colors } from '../constants/colors';
 import InputForm from '../components/InputForm';
 import SubmitButton from '../components/SubmitButton';
@@ -10,14 +11,12 @@ import { signupSchema } from '../validations/authSchema';
 
 const SignupScreen = ({ navigation }) => {
     const [email, setEmail] = useState('');
-    const [errorMail, setErrorMail] = useState('');
     const [password, setPassword] = useState('');
-    const [errorPassword, setErrorPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
-    const [errorConfirmPassword, setErrorConfirmPassword] = useState('');
+    const [errorModalVisible, setErrorModalVisible] = useState(false);
+    const [errorMessage, setErrorMessage] = useState('');
 
     const dispatch = useDispatch();
-
     const [triggerSignUp, result] = useSignUpMutation();
 
     useEffect(() => {
@@ -28,55 +27,91 @@ const SignupScreen = ({ navigation }) => {
                     idToken: result.data.idToken
                 })
             );
-        }
-    }, [result]);
-
-    const onSubmit = () => {
-        try {
-            setErrorMail('');
-            setErrorPassword('');
-            setErrorConfirmPassword('');
-            const validation = signupSchema.validateSync({ email, password, confirmPassword });
-            triggerSignUp({ email, password, returnSecureToken: true });
-        } catch (err) {
-            switch (err.path) {
-                case 'email':
-                    setErrorMail(err.message);
+            Alert.alert('Éxito', 'Usuario creado con éxito', [{ text: 'OK' }]);
+            navigation.navigate('Login');
+        } else if (result.isError) {
+            let errorMessage = 'Error al crear el usuario';
+            switch (result.error?.data?.error?.message) {
+                case 'EMAIL_EXISTS':
+                    errorMessage = 'El email ya está en uso';
                     break;
-                case 'password':
-                    setErrorPassword(err.message);
+                case 'INVALID_EMAIL':
+                    errorMessage = 'Email inválido';
                     break;
-                case 'confirmPassword':
-                    setErrorConfirmPassword(err.message);
+                case 'WEAK_PASSWORD':
+                    errorMessage = 'La clave es débil';
                     break;
+                    case 'CONFIRM_PASSWORD_REQUIRED':
+                        errorMessage = 'Confirma tu clave es requerido';
+                        break;
+                    
                 default:
                     break;
             }
+            setErrorMessage(errorMessage);
+            setErrorModalVisible(true);
+        }
+    }, [result, dispatch, navigation]);
+
+    const onSubmit = () => {
+        try {
+            signupSchema.validateSync({ email, password, confirmPassword });
+            triggerSignUp({ email, password, returnSecureToken: true });
+        } catch (err) {
+            setErrorMessage(err.message);
+            setErrorModalVisible(true);
         }
     };
 
     return (
-        <ImageBackground source={require('../../assets/toques.webp')} style={styles.loginImg}>
-            <View style={styles.main}>
-                <View style={styles.container}>
-                    <Text style={styles.title}>Registrate</Text>
-                    <InputForm label={'Email'} onChange={setEmail} error={errorMail} />
-                    <InputForm label={'Password'} onChange={setPassword} error={errorPassword} isSecure={true} />
-                    <InputForm label={'Confirm Password'} onChange={setConfirmPassword} error={errorConfirmPassword} isSecure={true} />
-                    <SubmitButton onPress={onSubmit} title="Enviar" />
-                    <Text style={styles.sub}>Ya tienes cuenta?</Text>
-                    <Pressable onPress={() => navigation.navigate('Login')}>
-                        <Text style={styles.subLink}>Inicio de Sesion</Text>
-                    </Pressable>
+        <KeyboardAvoidingView
+            behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+            style={styles.keyboardAvoidingView}
+        >
+            <ScrollView contentContainerStyle={styles.scrollViewContent}>
+                <ImageBackground source={require('../../assets/toques.webp')} style={styles.loginImg}>
+                    <View style={styles.main}>
+                        <Text style={styles.title}>Registrate</Text>
+                        <View style={styles.container}>
+                            <InputForm label={'Email'} onChange={setEmail} />
+                            <InputForm label={'Ingresa Tu Clave'} onChange={setPassword} isSecure={true} />
+                            <InputForm label={'Confirma Tu Clave'} onChange={setConfirmPassword} isSecure={true} />
+                            <SubmitButton onPress={onSubmit} title="Enviar" />
+                            <Text style={styles.sub}>Ya tienes cuenta?</Text>
+                            <Pressable onPress={() => navigation.navigate('Login')}>
+                                <Text style={styles.subLink}>Inicio de Sesion</Text>
+                            </Pressable>
+                        </View>
+                    </View>
+                </ImageBackground>
+            </ScrollView>
+            <Modal
+                visible={errorModalVisible}
+                animationType="slide"
+                transparent={true}
+                onRequestClose={() => setErrorModalVisible(false)}
+            >
+                <View style={styles.modalContainer}>
+                    <View style={styles.modalContent}>
+                        <Text style={styles.modalText}>{errorMessage}</Text>
+                        <Button title="OK" onPress={() => setErrorModalVisible(false)} color={colors.primary} />
+                    </View>
                 </View>
-            </View>
-        </ImageBackground>
+            </Modal>
+        </KeyboardAvoidingView>
     );
 };
 
 export default SignupScreen;
 
 const styles = StyleSheet.create({
+    keyboardAvoidingView: {
+        flex: 1,
+    },
+    scrollViewContent: {
+        flexGrow: 1,
+        justifyContent: 'center',
+    },
     main: {
         flex: 1,
         justifyContent: 'center',
@@ -85,8 +120,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'rgba(255, 255, 255, 0.1)',
     },
     container: {
-        width: '80%',
-        marginTop: 550,
+        width: '70%',
+        marginTop: 290,
         backgroundColor: 'rgba(255, 255, 255, 0.1)',
         borderRadius: 10,
         elevation: 2,
@@ -97,24 +132,41 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     title: {
-        fontSize: 24,
+        fontSize: 20,
         color: colors.cardScreens,
-        marginBottom: 4,
+        marginTop: 1,
         width: '100%',
+        marginLeft: 50,
     },
     sub: {
         fontSize: 16,
         color: 'black',
-        marginTop: 20,
+        marginTop: 4,
     },
     subLink: {
         fontSize: 16,
         color: 'red',
-        marginTop: 20,
+        marginTop: 4,
     },
     loginImg: {
         height: '60%',
         width: '100%',
-        marginTop: 120
+        marginTop: 1,
+    },
+    modalContainer: {
+        flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    },
+    modalContent: {
+        backgroundColor: 'white',
+        padding: 20,
+        borderRadius: 10,
+        elevation: 5,
+    },
+    modalText: {
+        fontSize: 18,
+        marginBottom: 20,
     },
 });

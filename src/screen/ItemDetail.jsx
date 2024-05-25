@@ -1,26 +1,28 @@
 import React, { useEffect, useState } from "react";
-import {
-  Pressable,
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  useWindowDimensions,
-} from "react-native";
+import { Pressable, Image, StyleSheet, Text, View, Modal } from "react-native";
 import { colors } from "../constants/colors";
 import { useSelector, useDispatch } from "react-redux";
-import { setSelectedItem } from "../features/Shop/ShopSlice";
+
 import { useGetProductByIdQuery } from "../services/shopService";
 import { addCartItem } from "../features/Cart/cart.slice";
 
 const ItemDetail = ({ route, navigation }) => {
   const dispatch = useDispatch();
   const [quantity, setQuantity] = useState(1);
+  const [modalVisible, setModalVisible] = useState(false); 
   const { productId: itemSelected } = route.params;
-  const { data: product, error, isLoading } = useGetProductByIdQuery(itemSelected);
+  const {
+    data: product,
+    error,
+    isLoading,
+  } = useGetProductByIdQuery(itemSelected);
 
   const handleAddCart = () => {
     dispatch(addCartItem({ ...product, quantity }));
+    setModalVisible(true); 
+    setTimeout(() => {
+      setModalVisible(false); 
+    }, 3000);
   };
 
   const handleQuantityChange = (newQuantity) => {
@@ -68,6 +70,22 @@ const ItemDetail = ({ route, navigation }) => {
           </View>
         </View>
       ) : null}
+      <Modal
+        animationType="slide"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => {
+          setModalVisible(false);
+        }}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Text style={styles.modalText}>
+              Agregado correctamente al carrito
+            </Text>
+          </View>
+        </View>
+      </Modal>
     </View>
   );
 };
@@ -75,7 +93,7 @@ const ItemDetail = ({ route, navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-   backgroundColor: colors.cardScreens,
+    backgroundColor: colors.cardScreens,
   },
   button: {
     marginTop: 10,
@@ -160,7 +178,33 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     color: "#fff",
   },
+  centeredView: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
+  },
+  modalView: {
+    margin: 20,
+    backgroundColor: colors.cardScreens,
+    borderRadius: 20,
+    padding: 35,
+    alignItems: "center",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
+  },
+  modalText: {
+    marginBottom: 15,
+    textAlign: "center",
+    fontSize: 20,
+    color: colors.lightColor,
+  },
 });
 
 export default ItemDetail;
-

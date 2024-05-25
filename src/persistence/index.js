@@ -1,108 +1,90 @@
-// import * as ExpoSQLite from "expo-sqlite"
-// import { Platform } from "react-native"
+import * as ExpoSQLite from "expo-sqlite"
 
-// let db = null
-// if (Platform.OS !== 'web') db = ExpoSQLite.openDatabase("sessions.db")
+const db = ExpoSQLite.openDatabase("sessions.db")
 
-// export const initSQLiteDB = () => {
-//     console.log("Will create table")
-//     const promise = new Promise((resolve, reject) => {
-//         db.transaction((tx) => {
-//             //Define SQL statement. BEWARE of PARENTHESIS
-//             tx.executeSql(
-//                 "CREATE TABLE IF NOT EXISTS sessions (localId TEXT PRIMARY KEY NOT NULL, email TEXT NOT NULL, token TEXT NOT NULL);",
-//                 [], //Parameters
-//                 (_, result) => resolve(result), //Resolve trasaction
-//                 (_, error) => reject(error) //Transaction error
-//             )
-//         })
-//     })
-//     console.log("will return promise")
-//     return promise
-// }
+export const initSQLiteDB = () => {
+    console.log("Will create table")
+    const promise = new Promise((resolve, reject) => {
+        db.transaction((tx) => {
+        
+            tx.executeSql(
+                "CREATE TABLE IF NOT EXISTS sessions (localId TEXT PRIMARY KEY NOT NULL, email TEXT NOT NULL, token TEXT NOT NULL);",
+                [], 
+                (_, result) => resolve(result), 
+                (_, error) => reject(error) 
+            )
+        })
+    })
+    console.log("will return promise")
+    return promise
+}
 
-// export const insertSession = ({
-//     email,
-//     localId,
-//     token
-// }) => {
-//     const promise = new Promise((resolve, reject) => {
-//         db.transaction((tx) => {
-//             //Define SQL statement. BEWARE of PARENTHESIS
-//             tx.executeSql(
-//                 'INSERT INTO sessions (localId, email, token) VALUES (?, ?, ?);',
-//                 [localId, email, token], //Parameters
-//                 (_, result) => resolve(result), //Resolve trasaction
-//                 (_, error) => reject(error) //Transaction error
-//             )
-//         })
-//     })
-//     return promise
-// }
+export const insertSession = ({
+    email,
+    localId,
+    token
+}) => {
+    const promise = new Promise((resolve, reject) => {
+        db.transaction((tx) => {
+           
+            tx.executeSql(
+                'INSERT INTO sessions (localId, email, token) VALUES (?, ?, ?);',
+                [localId, email, token], 
+                (_, result) => resolve(result), 
+                (_, error) => reject(error) 
+            )
+        })
+    })
+    return promise
+}
 
-// export const getSession = () => {
-//     const promise = new Promise((resolve, reject) => {
-//         db.transaction((tx) => {
-//             //Define SQL statement. BEWARE of PARENTHESIS
-//             tx.executeSql(
-//                 'SELECT * from sessions',
-//                 [], //Parameters
-//                 (_, result) => resolve(result), //Resolve trasaction
-//                 (_, error) => reject(error) //Transaction error
-//             )
-//         })
-//     })
-//     return promise
-// }
-
-// /* export const getSessions = ({
-//     email,
-//     localId,
-//     token
-// }) => {
-//     const promise = new Promise((resolve, reject) => {
-//         db.transaction((tx) => {
-//             //Define SQL statement. BEWARE of PARENTHESIS
-//             tx.executeSql(
-//                 `INSERT INTO sessions (email, localId, token) VALUES (?, ?, ?)`,
-//                 [email, localId, token], //Parameters
-//                 (_, result) => resolve(result), //Resolve trasaction
-//                 (_, error) => reject(error) //Transaction error
-//             )
-//         })
-//     })
-//     return promise
-// } */
-
-// export const dropSessionsTable = () => {
-//     console.log("Will drop table")
-//     const promise = new Promise((resolve, reject) => {
-//         db.transaction((tx) => {
-//             //Define SQL statement. BEWARE of PARENTHESIS
-//             tx.executeSql(
-//                 "DROP TABLE IF EXISTS sessions",
-//                 (_, result) => resolve(result), //Resolve trasaction
-//                 (_, error) => reject(error) //Transaction error
-//             )
-//         })
-//     })
-//     console.log("will return promise")
-//     return promise
-// }
-
-// export const truncateSessionsTable = () => {
-//     console.log("Will truncate table")
-//     const promise = new Promise((resolve, reject) => {
-//         db.transaction((tx) => {
-//             //Define SQL statement. BEWARE of PARENTHESIS
-//             tx.executeSql(
-//                 "DELETE FROM sessions",
-//                 [], //Parameters
-//                 (_, result) => resolve(result), //Resolve trasaction
-//                 (_, error) => reject(error) //Transaction error
-//             )
-//         })
-//     })
-//     console.log("will return promise")
-//     return promise
-// }
+export const getSession = () => {
+    const promise = new Promise((resolve, reject) => {
+        db.transaction((tx) => {
+      
+            tx.executeSql(
+                'SELECT * from sessions',
+                [],
+                (_, result) => resolve(result), 
+                (_, error) => reject(error) 
+            )
+        })
+    })
+    return promise
+}
+export const dropSessionsTable = () => {
+    console.log("Will drop table")
+    const promise = new Promise((resolve, reject) => {
+        db.transaction((tx) => {
+          
+            tx.executeSql(
+                "DROP TABLE IF EXISTS sessions",
+                (_, result) => resolve(result), 
+                (_, error) => reject(error) 
+            )
+        })
+    })
+    console.log("will return promise")
+    return promise
+}
+export const truncateSessionsTable = () => {
+    console.log("Will truncate table");
+    const promise = new Promise((resolve, reject) => {
+        db.transaction((tx) => {
+            tx.executeSql(
+                "DELETE FROM sessions",
+                [],
+                (_, result) => {
+                    console.log("Sessions truncated successfully:", result);
+                    resolve(result);
+                },
+                (_, error) => {
+                    console.error("Error truncating sessions:", error);
+                    reject(error);
+                }
+            );
+        });
+    });
+    console.log("Will return promise");
+    return promise;
+};

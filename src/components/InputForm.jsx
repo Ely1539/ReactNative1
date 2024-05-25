@@ -21,16 +21,21 @@ const InputForm = ({ label, onChange, error, isSecure }) => {
 const styles = StyleSheet.create({
   container: {
     width: '100%',
-    marginBottom: 20,
+    height: 80,
+
   },
   label: {
     fontSize: 16,
     color: colors.cardScreens,
-    marginBottom: 5,
+    marginBottom: 0,
+    height: 20,
+    
+    
   },
   input: {
     width: '100%',
-    padding: 10,
+    height: 40,
+    padding: 2,
     borderWidth: 1,
     borderColor: colors.cardScreens,
     borderRadius: 5,
@@ -38,9 +43,9 @@ const styles = StyleSheet.create({
     color: colors.lightColor,
   },
   error: {
-    marginTop: 5,
+   
     fontSize: 14,
-    color: colors.li,
+    color: colors.lightColor,
     
   },
 });
